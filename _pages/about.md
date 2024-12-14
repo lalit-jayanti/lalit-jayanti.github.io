@@ -11,6 +11,6 @@ redirect_from:
 
 I am an undergraduate student at the [Indian Institute of Technology Madras](https://www.iitm.ac.in/). I have worked as a research intern at the [Indian Institute of Science, Bangalore](https://iisc.ac.in/), focusing on multi-agent reinforcement learning. I have also been a part of [Centre For Innovation \| IIT Madras](https://cfi.iitm.ac.in/), where I contributed to developing autonomous vehicles and participated in international robotics competitions.
 
-I am interested in a range of topics in robotics and artificial intelligence, such as path planning, control of multi-agent systems and data-driven reinforcement learning. My goal is to develop safe, robust, and scalable autonomous vehicle technologies.
+I am interested in a range of topics in robotics and artificial intelligence, such as path planning, control of multi-agent systems and data-driven reinforcement learning. My goal is to develop safe, robust, and scalable autonomous systems, including robotic assistants such as mobile manipulators and autonomous vehicles.
 
 ---
