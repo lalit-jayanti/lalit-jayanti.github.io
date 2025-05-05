@@ -14,4 +14,4 @@ This work presents linear complementarity based formulations for contact analysi
 
 [Download paper here](https://doi.org/10.1016/j.mechmachtheory.2024.105669)
 
-Recommended citation: <a href="https://lalit-jayanti.github.io/files/citations/S0094114X2400096X.bib">[BibTeX]</a>
+[Recommended citation](https://lalit-jayanti.github.io/files/citations/S0094114X2400096X.bib)

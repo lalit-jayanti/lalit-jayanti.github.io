@@ -15,4 +15,4 @@ This work proposes a novel RL aided rolling horizon framework, for the single-ag
 
 [Download paper here](https://lalit-jayanti.github.io/files/c1_reinforcement_learning_based_persistent_surveillance_on_graphs.pdf)
 
-Recommended citation: <a href="https://lalit-jayanti.github.io/files/citations/c1_reinforcement_learning_based_persistent_surveillance_on_graphs_citation.bib ">[BibTeX]</a>
+[Recommended citation](https://lalit-jayanti.github.io/files/citations/c1_reinforcement_learning_based_persistent_surveillance_on_graphs_citation.bib)
