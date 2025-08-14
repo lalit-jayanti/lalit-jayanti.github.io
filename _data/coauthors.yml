@@ -32,3 +32,24 @@
 "planck":
   - firstname: ["Max"]
     url: https://en.wikipedia.org/wiki/Max_Planck
+
+"pavan":
+  - firstname: ["Pavan", "P.", "P. T.", "Pavan Tallapragada"]
+    url:
+
+"nischal":
+  - firstname: ["Nischal", "N.", "N. G.", "Nischal Hoysal G"]
+    url:
+
+"aravind":
+  - firstname: ["Aravind", "A.", "A. S.", "Aravind S"]
+    url:
+
+"sourav":
+  - firstname: ["Sourav", "S.", "S. R.", "Sourav Rakshit"]
+    url:
+
+
+"mangesh":
+  - firstname: ["Mangesh", "M.", "M. P.", "Mangesh Pathak"]
+    url:
