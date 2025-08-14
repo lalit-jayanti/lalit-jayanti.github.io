@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "projects",
-          description: "A growing collection of your cool projects.",
+          description: "A growing collection of my projects.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -409,8 +409,8 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{id: "projects-intelligent-ground-vehicle-competition-igvc",
-          title: 'Intelligent Ground Vehicle Competition (IGVC)',
+          section: "News",},{id: "projects-intelligent-ground-vehicle-competition",
+          title: 'Intelligent Ground Vehicle Competition',
           description: "Built a vision-based autonomous differential drive robot",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
