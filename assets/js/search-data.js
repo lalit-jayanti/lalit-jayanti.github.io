@@ -414,9 +414,9 @@ ninja.data = [{
           description: "Built a vision-based autonomous differential drive robot",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
-            },},{id: "projects-project-2",
-          title: 'project 2',
-          description: "a project with a background image and giscus comments",
+            },},{id: "projects-design-and-analysis-of-jansen-linkage",
+          title: 'Design and Analysis of Jansen Linkage',
+          description: "Designed a robotic leg mechanism",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
             },},{id: "projects-project-3-with-very-long-name",
