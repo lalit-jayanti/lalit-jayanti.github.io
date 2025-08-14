@@ -28,6 +28,6 @@ In this project, I led the software team in the development of the robot. My key
     The team and the robot "Vikram".
 </div>
 
-[Technical project report](lalit-jayanti/assets/pdf/t1_vikram_technical_report.pdf)
+[Technical project report](https://lalit-jayanti.github.io/assets/pdf/t1_vikram_technical_report.pdf)
 
 [Simulation code](https://github.com/lalit-jayanti/virat-simulation)
