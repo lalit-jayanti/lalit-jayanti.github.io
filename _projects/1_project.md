@@ -5,7 +5,6 @@ description: Built a vision-based autonomous differential drive robot
 img: assets/img/abhiyaan/igvc_vikram.png
 importance: 1
 category: work
-related_publications: true
 ---
 
 At [Team Abhiyaan](https://cfi.iitm.ac.in/competition-teams/team-abhiyaan), I built a vision-based autonomous differential drive robot "Vikram". With Vikram, we competed in the AutoNav and Cyber Challenges at the 30th Annual [Intelligent Ground Vehicle Competition (IGVC)](http://www.igvc.org/index.htm) in the USA. We won 1st place in both the AutoNav Design and Cyber challenges.
