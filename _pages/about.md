@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Ad Astra
+subtitle:
 
 profile:
   align: right
