@@ -412,11 +412,16 @@ ninja.data = [{
           description: "Designed a robotic leg mechanism",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
+            },},{id: "projects-reinforcement-learning",
+          title: 'Reinforcement Learning',
+          description: "Implementation of various RL agents",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
             },},{id: "projects-pattern-recognition-and-machine-learning",
           title: 'Pattern Recognition and Machine Learning',
           description: "Implementation of various supervised and unsupervised learning techniques from scratch",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/3_project/";
+              window.location.href = "/projects/4_project/";
             },},{
         id: 'social-email',
         title: 'email',
