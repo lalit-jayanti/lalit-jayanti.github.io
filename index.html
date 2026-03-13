@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lalit Jayanti</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪸</text></svg>">
+
+  <!-- ════ Google Analytics - replace G-XXXXXXXXXX════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-74TKRXZ035"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-74TKRXZ035');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --black: #111;
+      --gray-1: #333;
+      --gray-2: #666;
+      --gray-3: #999;
+      --gray-4: #ccc;
+      --bg: #fff;
+      --bg-subtle: #f7f7f7;
+      --border: #e5e5e5;
+      --badge-oral: #0d7240;    --badge-oral-bg: #e6f6ee;
+      --badge-spot: #7c3aed;    --badge-spot-bg: #f0ebff;
+      --badge-best: #b45309;    --badge-best-bg: #fef3c7;
+      --sans: 'Roboto', sans-serif;
+      --mono: 'Roboto Mono', monospace;
+      --max-w: 780px;
+
+      /* ── Gradient underline colours - swap these 5 lines to change palette ── */
+      --g1: #7c3aed;   /* violet */
+      --g2: #db2777;   /* pink   */
+      --g3: #ea580c;   /* orange */
+      --accent: #7c3aed;
+      --link: #7c3aed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--black);
+      line-height: 1.6;
+      padding: 0 1.25rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════ GRADIENT UNDERLINE UTILITY ════ */
+    .gu {
+      color: inherit;
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 1.5px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 1px;
+      transition: background-size 0.3s ease, color 0.2s ease;
+    }
+    .gu:hover { background-size: 100% 1.5px; color: var(--g1); }
+
+    .bio a {
+      color: var(--link);
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2));
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 1px;
+      transition: background-size 0.25s ease, color 0.2s;
+    }
+    .bio a:hover { background-size: 100% 1px; color: var(--g1); }
+
+    nav a {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-2);
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2));
+      background-size: 0% 2px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 2px;
+      transition: background-size 0.25s ease, color 0.2s;
+    }
+    nav a:hover  { background-size: 100% 2px; color: var(--black); }
+    nav a.active { background-size: 100% 2px; color: var(--black); }
+
+    .pub-title a {
+      color: var(--black);
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 1.5px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 1px;
+      transition: background-size 0.3s ease, color 0.2s;
+    }
+    .pub-title a:hover { background-size: 100% 1.5px; color: var(--g1); }
+
+    .pub-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--link);
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2));
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: background-size 0.2s ease, color 0.15s;
+    }
+    .pub-links a:hover { background-size: 100% 1px; color: var(--g1); }
+    .pub-links a + a::before { content: '/'; margin: 0 0.5rem; color: var(--gray-4); }
+
+    .news-row .text a,
+    .teach-row .course a {
+      color: var(--link);
+      text-decoration: none;
+      background-image: linear-gradient(90deg, var(--g2), var(--g1));
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: background-size 0.22s ease, color 0.15s;
+    }
+    .news-row .text a:hover,
+    .teach-row .course a:hover { background-size: 100% 1px; color: var(--g2); }
+
+    .links a {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--gray-1);
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.25em 0.65em;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0%; height: 2px;
+      background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      transition: width 0.3s ease;
+    }
+    .links a:hover { color: var(--g1); border-color: var(--g1); }
+    .links a:hover::after { width: 100%; }
+
+    /* ════ LAYOUT ════ */
+    .page { max-width: var(--max-w); margin: 0 auto; padding: 3rem 0 5rem; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    header .name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 2px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 2px;
+      transition: background-size 0.35s ease, color 0.2s;
+      cursor: default;
+    }
+    header .name:hover { background-size: 100% 2px; color: var(--g1); }
+
+    nav { display: flex; gap: 1.5rem; list-style: none; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 155px;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+
+    .hero-left h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.2rem;
+      display: inline-block;
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 2.5px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      padding-bottom: 3px;
+      transition: background-size 0.4s ease, color 0.2s;
+      cursor: default;
+    }
+    .hero-left h1:hover { background-size: 100% 2.5px; color: var(--g1); }
+
+    .hero-left .role {
+      font-size: 0.8125rem;
+      color: var(--gray-2);
+      margin-bottom: 1.25rem;
+      font-family: var(--mono);
+    }
+
+    .bio { font-size: 0.9375rem; color: var(--gray-1); font-weight: 300; line-height: 1.7; }
+    .bio + .bio { margin-top: 0.75rem; }
+    .bio strong { font-weight: 500; color: var(--black); }
+    .links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+
+    .hero-photo {
+      width: 155px; height: 155px;
+      border-radius: 6px; overflow: hidden;
+      background: var(--bg-subtle); border: 1px solid var(--border);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-photo .placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.65rem; color: var(--gray-3);
+      text-align: center; padding: 1rem;
+    }
+
+    section { margin-bottom: 2.75rem; }
+
+    .section-title {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      margin-bottom: 1.25rem;
+
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      background-position: left;
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: var(--gray-3);
+
+      transition: background-size 0.6s ease;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      height: 1px;
+      flex: 1;
+
+      background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      background-position: left;
+
+      background-color: var(--border);
+
+      transition: background-size 0.6s ease;
+    }
+    .section-title:hover {
+      color: transparent;
+      background-size: 100% 100%;
+    }
+    .section-title:hover::after {
+      background-size: 100% 100%;
+    }
+    .news-list { display: grid; gap: 0.6rem; }
+    .news-row { display: grid; grid-template-columns: 88px 1fr; gap: 1rem; font-size: 0.875rem; }
+    .news-row .date { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); font-weight: 500; padding-top: 0.15em; }
+    .news-row .text { color: var(--gray-1); font-weight: 300; }
+
+    .pub-list { display: grid; gap: 0; }
+    .pub-year {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      color: var(--gray-3); letter-spacing: 0.05em;
+      padding: 0.5rem 0 0.75rem;
+      border-top: 1px solid var(--border); margin-top: 0.5rem;
+    }
+    .pub-year:first-child { border-top: none; margin-top: 0; }
+
+    .pub {
+      display: grid; grid-template-columns: 130px 1fr;
+      gap: 1.25rem; padding: 1rem 0;
+      border-bottom: 1px solid var(--border); align-items: start;
+    }
+    .pub:last-child { border-bottom: none; }
+
+    .pub-thumb {
+      width: 130px; height: 90px;
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden; flex-shrink: 0;
+    }
+    .pub-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pub-thumb .placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--gray-3); text-align: center;
+    }
+
+    .pub-title { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; margin-bottom: 0.25rem; }
+    .pub-subtitle {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      margin-top: 0.1rem;
+    }
+    .pub-authors { font-size: 0.8125rem; color: var(--gray-2); font-weight: 300; margin-bottom: 0.2rem; }
+    .pub-authors strong { font-weight: 500; color: var(--gray-1); }
+    .pub-venue { font-size: 0.8rem; color: var(--gray-2); margin-bottom: 0.4rem; }
+
+    .badge {
+      display: inline-block; font-family: var(--mono);
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      border-radius: 3px; padding: 0.18em 0.55em;
+      margin-right: 0.35rem; margin-bottom: 0.4rem;
+    }
+    .badge-oral { background: var(--badge-oral-bg); color: var(--badge-oral); }
+    .badge-spot { background: var(--badge-spot-bg); color: var(--badge-spot); }
+    .badge-best { background: var(--badge-best-bg); color: var(--badge-best); }
+    .badge-pre  { background: var(--bg-subtle); color: var(--gray-2); border: 1px solid var(--border); }
+
+    .pub-links { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; margin-top: 0.35rem; align-items: center; }
+
+    /* ── BibTeX button ── */
+    .bibtex-btn {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.15em 0.5em;
+      color: var(--gray-3);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      line-height: 1.5;
+    }
+    .bibtex-btn:hover  { border-color: var(--g2); color: var(--g2); }
+    .bibtex-btn.open   { border-color: var(--g1); color: var(--g1); }
+    .bibtex-btn.copied { border-color: var(--badge-oral); color: var(--badge-oral); }
+
+    /* ── BibTeX drawer ── */
+    .bibtex-drawer {
+      display: none;
+      margin-top: 0.65rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--gray-1);
+      line-height: 1.65;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .bibtex-drawer.open { display: block; }
+
+    .teach-list { display: grid; gap: 0.5rem; }
+    .teach-row { display: grid; grid-template-columns: 88px 1fr; gap: 1rem; font-size: 0.875rem; }
+    .teach-row .term { font-family: var(--mono); font-size: 0.7rem; color: var(--gray-3); padding-top: 0.15em; }
+    .teach-row .course { color: var(--gray-1); font-weight: 300; }
+
+    footer {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono); font-size: 0.68rem; color: var(--gray-3);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    @media (max-width: 580px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo { width: 110px; height: 110px; }
+      .pub { grid-template-columns: 1fr; }
+      .pub-thumb { width: 100%; height: 110px; }
+      .news-row, .teach-row { grid-template-columns: 1fr; gap: 0.15rem; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero                  { animation: fadeIn 0.4s ease both; }
+    section                { animation: fadeIn 0.4s ease both; }
+    section:nth-of-type(1) { animation-delay: 0.06s; }
+    section:nth-of-type(2) { animation-delay: 0.10s; }
+    section:nth-of-type(3) { animation-delay: 0.14s; }
+    section:nth-of-type(4) { animation-delay: 0.18s; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ════ HEADER ════ -->
+  <header>
+    <span class="name"></span>
+    <nav id="main-nav">
+      <a href="#about"        data-section="about">About</a>
+      <a href="#news"         data-section="news">News</a>
+      <a href="#publications" data-section="publications">Publications</a>
+      <!-- <a href="#teaching"     data-section="teaching">Teaching</a> -->
+      <!-- <a href="assets/cv.pdf">CV</a> -->
+    </nav>
+  </header>
+
+  <!-- ════ ABOUT ════ -->
+  <div class="hero" id="about">
+    <div class="hero-left">
+      <h1>Lalit Jayanti</h1>
+      <p class="role">Master of Science in Robotics · Carnegie Mellon University</p>
+
+      <p class="bio">
+        I am a Master's student in the <a href="https://www.ri.cmu.edu/">Robotics Institute</a> at <a href="https://www.cmu.edu/">Carnegie Mellon University</a>,
+        advised by <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>. 
+        My research focuses on <strong>humanoid whole-body control</strong>, learning generalizable skills from human demonstrations, 
+        and deploying these skills on real-world humanoid robots, such as the Unitree G1.
+      </p>
+      
+
+      <div class="links">
+        <a href="https://github.com/lalit-jayanti"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://scholar.google.com/citations?user=EExY-1IAAAAJ&hl=en"><i class="fas fa-graduation-cap"></i> Scholar</a>
+        <a href="https://www.linkedin.com/in/lalit-jayanti-04503925a"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="assets/prof_pic.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- ════ NEWS ════ -->
+  <section id="news">
+    <div class="section-title">News</div>
+    <div class="news-list">
+
+      <div class="news-row">
+        <span class="date">Feb 2026</span>
+        <span class="text">One co-authored paper has been accepted to <a href="https://cvpr.thecvf.com/">CVPR 2026</a>.</span>
+      </div>
+      <div class="news-row">
+        <span class="date">Aug 2025</span>
+        <span class="text">Joined the M.S. in Robotics program at CMU.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════ PUBLICATIONS ════ -->
+  <section id="publications">
+    <div class="section-title">Publications</div>
+    <p style="font-size:0.78rem;color:var(--gray-3);font-family:var(--mono);margin-bottom:1rem;">
+      * equal contribution &nbsp;·&nbsp; ‡ equal advising
+    </p>
+
+    <div class="pub-list">
+
+      <div class="pub-year">2026</div>
+
+      <!--
+        ════ HOW TO ADD A PAPER ════
+        1. Copy the entire block from <div class="pub"> to its closing </div>
+        2. Fill in: title, authors, venue, href links
+        3. Replace the BibTeX text inside data-bibtex="..." on the button
+        4. Uncomment a badge if needed
+        ════════════════════════════
+      -->
+      <!--Start -->
+      <div class="pub">
+        <div class="pub-thumb">
+          <img src="assets/pub/assistmimic_teaser.png" alt="">
+          <!-- <div class="placeholder">fig</div> -->
+        </div>
+        <div class="pub-meta">
+          <div class="pub-title">
+            <a href="https://yutoshibata07.github.io/AssistMimic/#">AssistMimic: Learning to Assist</a>
+            <span class="pub-subtitle">Physics-Grounded Human-Human Control via Multi-Agent Reinforcement Learning</span>
+          </div>
+          <div class="pub-authors">
+            Yuto Shibata, Kashu Yamazaki, <strong>Lalit Jayanti</strong>, Yoshimitsu Aoki, Mariko Isogawa, Katerina Fragkiadaki 
+          </div>
+          <div class="pub-venue">CVPR, 2026</div>
+          <!-- <span class="badge badge-oral">Oral</span> -->
+          <!-- <span class="badge badge-spot">Spotlight</span> -->
+          <!-- <span class="badge badge-best">Best Paper Finalist</span> -->
+          <!-- <span class="badge badge-pre">Preprint</span> -->
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2603.11346">arxiv</a>
+            <a href="#">code (coming soon)</a>
+            <a href="https://yutoshibata07.github.io/AssistMimic/#">webpage</a>
+            <button class="bibtex-btn"
+              data-bibtex="@inproceedings{shibata2026assistmimic,
+                title={Learning to Assist: Physics-Grounded Human-Human Control
+                       via Multi-Agent Reinforcement Learning},
+                author={Shibata, Yuto and Yamazaki, Kashu and Jayanti, Lalit
+                        and Aoki, Yoshimitsu and Isogawa, Mariko
+                        and Fragkiadaki, Katerina},
+                booktitle={Proceedings of the IEEE/CVF Conference on
+                           Computer Vision and Pattern Recognition (CVPR)},
+                year={2026}
+            }">BibTeX</button>
+          </div>
+        </div>
+      </div>
+      <!--End -->
+
+
+    </div>
+  </section>
+
+  <!-- ════ TEACHING ════ -->
+  <!-- <section id="teaching">
+    <div class="section-title">Teaching</div>
+    <div class="teach-list">
+
+      <div class="teach-row">
+        <span class="term">Fall 2025</span>
+        <span class="course">TA for <a href="#">Course Number: Course Name</a></span>
+      </div>
+      <div class="teach-row">
+        <span class="term">Spring 2025</span>
+        <span class="course">TA for <a href="#">Course Number: Course Name</a></span>
+      </div>
+
+    </div>
+  </section> -->
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <span>© 2026 Lalit Jayanti</span>
+  </footer>
+
+</div>
+
+<script>
+  /* ════ BibTeX — three-state cycle ════
+     Click 1 - opens drawer, button says "copy"
+     Click 2 0 copies to clipboard, button says "copied!", drawer closes after 1.8s
+     Clicking again at any point resets cleanly. */
+  document.querySelectorAll('.bibtex-btn').forEach(function(btn) {
+    var state = 0; /* 0 = closed, 1 = open/ready to copy, 2 = copied */
+    var timer = null;
+    var drawer = null;
+
+    function reset() {
+      state = 0;
+      btn.textContent = 'BibTeX';
+      btn.classList.remove('open', 'copied');
+      if (drawer) drawer.classList.remove('open');
+    }
+
+    function buildDrawer() {
+      if (drawer) return;
+      var bib = btn.getAttribute('data-bibtex') || '';
+      drawer = document.createElement('div');
+      drawer.className = 'bibtex-drawer';
+      var pre = document.createElement('pre');
+      pre.textContent = bib;
+      pre.style.cssText = 'margin:0;font:inherit;white-space:pre;';
+      drawer.appendChild(pre);
+      btn.closest('.pub-meta').appendChild(drawer);
+    }
+
+    btn.addEventListener('click', function() {
+      clearTimeout(timer);
+
+      if (state === 0) {
+        /* BibTeX - open drawer, prompt to copy */
+        buildDrawer();
+        drawer.classList.add('open');
+        btn.textContent = 'copy';
+        btn.classList.add('open');
+        state = 1;
+
+      } else if (state === 1) {
+        /* copy → copy to clipboard, show "copied!" */
+        var bib = btn.getAttribute('data-bibtex') || '';
+        navigator.clipboard.writeText(bib.trim()).then(function() {
+          btn.textContent = 'copied!';
+          btn.classList.remove('open');
+          btn.classList.add('copied');
+          state = 2;
+          timer = setTimeout(reset, 1800);
+        });
+
+      } else {
+        /* copied! - reset immediately on click */
+        reset();
+      }
+    });
+  });
+
+  /* ════ Active nav on scroll ════ */
+  (function() {
+    const sections = ['about', 'news', 'publications', 'teaching'];
+    const navLinks  = {};
+    sections.forEach(function(id) {
+      var el = document.querySelector('[data-section="' + id + '"]');
+      if (el) navLinks[id] = el;
+    });
+
+    var targets = sections.map(function(id) {
+      return document.getElementById(id);
+    }).filter(Boolean);
+
+    var active = 'about';
+    function setActive(id) {
+      if (id === active) return;
+      active = id;
+      Object.values(navLinks).forEach(function(a) { a.classList.remove('active'); });
+      if (navLinks[id]) navLinks[id].classList.add('active');
+    }
+    if (navLinks['about']) navLinks['about'].classList.add('active');
+
+    var observer = new IntersectionObserver(function(entries) {
+      var best = null, bestRatio = 0;
+      entries.forEach(function(e) {
+        if (e.intersectionRatio > bestRatio) {
+          bestRatio = e.intersectionRatio;
+          best = e.target.id;
+        }
+      });
+      if (best) setActive(best);
+    }, {
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+    });
+
+    targets.forEach(function(t) { observer.observe(t); });
+  })();
+</script>
+</body>
+</html>
