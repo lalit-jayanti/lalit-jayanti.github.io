@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robot Playground · Lalit Jayanti</title>
+  <meta name="description" content="Interactive robot demos that run in your browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪸</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="playground.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <a class="name" href="../">Lalit Jayanti</a>
+    <nav>
+      <a href="../#about">About</a>
+      <a href="../#news">News</a>
+      <a href="../#publications">Publications</a>
+      <a href="./" class="active">Playground</a>
+    </nav>
+  </header>
+
+  <div class="intro">
+    <h1>Robot Playground</h1>
+    <p>Interactive robot demos that run entirely in your browser. Pick a demo, then poke at it.</p>
+  </div>
+
+  <div class="demo-picker" role="tablist" aria-label="Demos">
+    <button class="demo-chip active" role="tab" aria-selected="true" data-demo="lightbulb">
+      <span class="chip-title">Dexterous light-bulb assembly</span>
+      <span class="chip-sub">Franka + five-finger hand · MuJoCo</span>
+    </button>
+  </div>
+</div>
+
+<div class="stage-wrap">
+  <div id="demo-root"></div>
+</div>
+
+<div class="page">
+  <div id="demo-info"></div>
+
+  <footer>
+    <span>© 2026 Lalit Jayanti</span>
+  </footer>
+</div>
+
+<script type="module">
+  const DEMOS = {
+    'lightbulb': () => import('./demos/lightbulb/demo.js'),
+  };
+  const root = document.getElementById('demo-root');
+  const info = document.getElementById('demo-info');
+  let active = null;
+
+  async function open(id) {
+    if (!DEMOS[id]) id = 'lightbulb';
+    document.querySelectorAll('.demo-chip').forEach((c) => {
+      const on = c.dataset.demo === id;
+      c.classList.toggle('active', on);
+      c.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (active && active.dispose) active.dispose();
+    root.replaceChildren();
+    info.replaceChildren();
+    const mod = await DEMOS[id]();
+    active = await mod.mount(root, info);
+  }
+
+  document.querySelectorAll('.demo-chip').forEach((c) =>
+    c.addEventListener('click', () => {
+      history.replaceState(null, '', '#' + c.dataset.demo);
+      open(c.dataset.demo);
+    })
+  );
+  open(location.hash.slice(1));
+</script>
+</body>
+</html>

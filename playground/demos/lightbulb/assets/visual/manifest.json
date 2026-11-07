@@ -1,0 +1,292 @@
+[
+ {
+  "body": "hand/r_mount",
+  "file": "hand_r_mount_0.stl",
+  "rgba": [
+   0.6269999742507935,
+   0.6269999742507935,
+   0.6269999742507935,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_wrist",
+  "file": "hand_r_wrist_1.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_thumb_proximal",
+  "file": "hand_r_thumb_proximal_2.stl",
+  "rgba": [
+   0.6269999742507935,
+   0.6269999742507935,
+   0.6269999742507935,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_thumb_proximal_abd",
+  "file": "hand_r_thumb_proximal_abd_3.stl",
+  "rgba": [
+   0.6269999742507935,
+   0.6269999742507935,
+   0.6269999742507935,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_thumb_middle",
+  "file": "hand_r_thumb_middle_4.stl",
+  "rgba": [
+   0.6269999742507935,
+   0.6269999742507935,
+   0.6269999742507935,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_thumb_distal",
+  "file": "hand_r_thumb_distal_5.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_thumb_tip_sensor_frame",
+  "file": "hand_r_thumb_tip_sensor_frame_6.stl",
+  "rgba": [
+   0.550000011920929,
+   0.7799999713897705,
+   0.949999988079071,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_index_finger_proximal",
+  "file": "hand_r_index_finger_proximal_7.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_index_finger_proximal_abd",
+  "file": "hand_r_index_finger_proximal_abd_8.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_index_finger_middle",
+  "file": "hand_r_index_finger_middle_9.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_index_finger_distal",
+  "file": "hand_r_index_finger_distal_10.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_index_finger_tip_sensor_frame",
+  "file": "hand_r_index_finger_tip_sensor_frame_11.stl",
+  "rgba": [
+   0.550000011920929,
+   0.7799999713897705,
+   0.949999988079071,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_middle_finger_proximal",
+  "file": "hand_r_middle_finger_proximal_12.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_middle_finger_proximal_abd",
+  "file": "hand_r_middle_finger_proximal_abd_13.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_middle_finger_middle",
+  "file": "hand_r_middle_finger_middle_14.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_middle_finger_distal",
+  "file": "hand_r_middle_finger_distal_15.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_middle_finger_tip_sensor_frame",
+  "file": "hand_r_middle_finger_tip_sensor_frame_16.stl",
+  "rgba": [
+   0.550000011920929,
+   0.7799999713897705,
+   0.949999988079071,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_ring_finger_proximal",
+  "file": "hand_r_ring_finger_proximal_17.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_ring_finger_proximal_abd",
+  "file": "hand_r_ring_finger_proximal_abd_18.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_ring_finger_middle",
+  "file": "hand_r_ring_finger_middle_19.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_ring_finger_distal",
+  "file": "hand_r_ring_finger_distal_20.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_ring_finger_tip_sensor_frame",
+  "file": "hand_r_ring_finger_tip_sensor_frame_21.stl",
+  "rgba": [
+   0.550000011920929,
+   0.7799999713897705,
+   0.949999988079071,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_pinky_proximal",
+  "file": "hand_r_pinky_proximal_22.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_pinky_proximal_abd",
+  "file": "hand_r_pinky_proximal_abd_23.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_pinky_middle",
+  "file": "hand_r_pinky_middle_24.stl",
+  "rgba": [
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_pinky_distal",
+  "file": "hand_r_pinky_distal_25.stl",
+  "rgba": [
+   0.7919999957084656,
+   0.8199999928474426,
+   0.9330000281333923,
+   1.0
+  ]
+ },
+ {
+  "body": "hand/r_pinky_tip_sensor_frame",
+  "file": "hand_r_pinky_tip_sensor_frame_26.stl",
+  "rgba": [
+   0.550000011920929,
+   0.7799999713897705,
+   0.949999988079071,
+   1.0
+  ]
+ },
+ {
+  "body": "lamp_base/lamp_base",
+  "file": "lamp_base_lamp_base_27.stl",
+  "rgba": [
+   0.5,
+   0.5,
+   0.5,
+   1.0
+  ]
+ },
+ {
+  "body": "lamp_bulb/lamp_bulb",
+  "file": "lamp_bulb_lamp_bulb_28.stl",
+  "rgba": [
+   0.5,
+   0.5,
+   0.5,
+   1.0
+  ]
+ }
+]

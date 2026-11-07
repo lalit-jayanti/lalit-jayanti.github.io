@@ -1,0 +1,26 @@
+/* Light-bulb demo additions on top of the shared demo styles (../common.css). */
+.lb .cg-panel { width: 268px; }
+.lb-starts { grid-template-columns: 1fr 1fr; }
+.lb-perturb { display: grid; gap: 6px; }
+.lb-actions { grid-template-columns: 1fr 1fr; }
+
+.lb-status {
+  position: absolute; top: 14px; right: 14px; min-width: 196px;
+  background: var(--panel-bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px 9px; pointer-events: none;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  transition: box-shadow 0.4s, border-color 0.4s;
+}
+.lb-status .lb-phase { font-size: 0.8rem; font-weight: 500; color: var(--black); }
+.lb-status .bar { height: 3px; border-radius: 2px; background: #e8e8ec; margin-top: 6px; overflow: hidden; }
+.lb-status .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3)); transition: width 0.2s; }
+.lb-status.lit { border-color: #f5c35b; box-shadow: 0 0 0 3px rgba(245, 195, 91, 0.25), 0 6px 24px rgba(245, 175, 60, 0.25); }
+.lb-status.lit .bar i { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+
+.lb .lb-force { top: auto; bottom: 14px; right: 14px; min-width: 0; }
+
+@media (max-width: 720px) {
+  .lb .cg-panel { width: auto; }
+  .lb-status { top: 10px; right: 10px; min-width: 0; }
+  .lb-perturb { grid-template-columns: 1fr; }
+}

@@ -400,6 +400,24 @@
       display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
     }
 
+    /* ════ PLAYGROUND ════ */
+    .play-card {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem;
+      padding: 1rem 1.1rem; border: 1px solid var(--border); border-radius: 6px;
+      color: inherit; text-decoration: none; position: relative; overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .play-card::after {
+      content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+      background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3)); transition: width 0.3s ease;
+    }
+    .play-card:hover { border-color: var(--g1); }
+    .play-card:hover::after { width: 100%; }
+    .play-title { font-size: 0.9375rem; font-weight: 500; }
+    .play-sub { font-family: var(--mono); font-size: 0.66rem; color: var(--gray-2); margin-top: 0.1rem; }
+    .play-desc { font-size: 0.8125rem; color: var(--gray-2); font-weight: 300; margin-top: 0.35rem; }
+    .play-go { font-family: var(--mono); font-size: 0.7rem; color: var(--link); white-space: nowrap; }
+
     @media (max-width: 580px) {
       .hero { grid-template-columns: 1fr; }
       .hero-photo { width: 110px; height: 110px; }
@@ -430,6 +448,7 @@
       <a href="#about"        data-section="about">About</a>
       <a href="#news"         data-section="news">News</a>
       <a href="#publications" data-section="publications">Publications</a>
+      <a href="playground/">Playground</a>
       <!-- <a href="#teaching"     data-section="teaching">Teaching</a> -->
       <!-- <a href="assets/cv.pdf">CV</a> -->
     </nav>
@@ -575,6 +594,18 @@
   </section>
 
   <!-- ════ TEACHING ════ -->
+  <!-- ════ ROBOT PLAYGROUND ════ -->
+  <section id="playground">
+    <div class="section-title">Robot Playground</div>
+    <a class="play-card" href="playground/#lightbulb">
+      <div>
+        <div class="play-title">Dexterous light-bulb assembly</div>
+        <div class="play-sub">Franka + five-finger hand · MuJoCo · runs in your browser</div>
+      </div>
+      <span class="play-go">Open →</span>
+    </a>
+  </section>
+
   <!-- <section id="teaching">
     <div class="section-title">Teaching</div>
     <div class="teach-list">

@@ -1,0 +1,448 @@
+<mujoco model="MuJoCo Model">
+  <compiler meshdir="meshes" angle="radian"/>
+
+  <option tolerance="1e-06" integrator="implicitfast" iterations="50" noslip_iterations="2"/>
+
+  <size nkey="1"/>
+
+  <default>
+    <default class="robot/main">
+      <default class="robot/panda">
+        <material shininess="0.25"/>
+        <joint range="-2.8973 2.8973" armature="0.1" damping="1"/>
+        <general ctrlrange="-2.8973 2.8973" forcerange="-87 87" biastype="affine"/>
+        <default class="robot/visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="robot/collision">
+          <geom type="mesh" group="3"/>
+        </default>
+      </default>
+    </default>
+    <default class="hand/main"/>
+    <default class="lamp_base/main"/>
+    <default class="lamp_bulb/main"/>
+  </default>
+
+  <asset>
+    <material name="robot/white" class="robot/panda"/>
+    <material name="robot/off_white" class="robot/panda" rgba="0.901961 0.921569 0.929412 1"/>
+    <material name="robot/black" class="robot/panda" rgba="0.25 0.25 0.25 1"/>
+    <material name="robot/green" class="robot/panda" rgba="0 1 0 1"/>
+    <material name="robot/light_blue" class="robot/panda" rgba="0.039216 0.541176 0.780392 1"/>
+    <mesh name="robot/link0_c" content_type="model/stl" file="link0.stl"/>
+    <mesh name="robot/link1_c" content_type="model/stl" file="link1.stl"/>
+    <mesh name="robot/link2_c" content_type="model/stl" file="link2.stl"/>
+    <mesh name="robot/link3_c" content_type="model/stl" file="link3.stl"/>
+    <mesh name="robot/link4_c" content_type="model/stl" file="link4.stl"/>
+    <mesh name="robot/link5_c0" content_type="model/obj" file="link5_collision_0.stl"/>
+    <mesh name="robot/link5_c1" content_type="model/obj" file="link5_collision_1.stl"/>
+    <mesh name="robot/link5_c2" content_type="model/obj" file="link5_collision_2.stl"/>
+    <mesh name="robot/link6_c" content_type="model/stl" file="link6.stl"/>
+    <mesh name="robot/link7_c" content_type="model/stl" file="link7.stl"/>
+    <mesh name="robot/link0_0" content_type="model/obj" file="link0_0.stl"/>
+    <mesh name="robot/link0_1" content_type="model/obj" file="link0_1.stl"/>
+    <mesh name="robot/link0_2" content_type="model/obj" file="link0_2.stl"/>
+    <mesh name="robot/link0_3" content_type="model/obj" file="link0_3.stl"/>
+    <mesh name="robot/link0_4" content_type="model/obj" file="link0_4.stl"/>
+    <mesh name="robot/link0_5" content_type="model/obj" file="link0_5.stl"/>
+    <mesh name="robot/link0_7" content_type="model/obj" file="link0_7.stl"/>
+    <mesh name="robot/link0_8" content_type="model/obj" file="link0_8.stl"/>
+    <mesh name="robot/link0_9" content_type="model/obj" file="link0_9.stl"/>
+    <mesh name="robot/link0_10" content_type="model/obj" file="link0_10.stl"/>
+    <mesh name="robot/link0_11" content_type="model/obj" file="link0_11.stl"/>
+    <mesh name="robot/link1" content_type="model/obj" file="link1_vis.stl"/>
+    <mesh name="robot/link2" content_type="model/obj" file="link2_vis.stl"/>
+    <mesh name="robot/link3_0" content_type="model/obj" file="link3_0.stl"/>
+    <mesh name="robot/link3_1" content_type="model/obj" file="link3_1.stl"/>
+    <mesh name="robot/link3_2" content_type="model/obj" file="link3_2.stl"/>
+    <mesh name="robot/link3_3" content_type="model/obj" file="link3_3.stl"/>
+    <mesh name="robot/link4_0" content_type="model/obj" file="link4_0.stl"/>
+    <mesh name="robot/link4_1" content_type="model/obj" file="link4_1.stl"/>
+    <mesh name="robot/link4_2" content_type="model/obj" file="link4_2.stl"/>
+    <mesh name="robot/link4_3" content_type="model/obj" file="link4_3.stl"/>
+    <mesh name="robot/link5_0" content_type="model/obj" file="link5_0.stl"/>
+    <mesh name="robot/link5_1" content_type="model/obj" file="link5_1.stl"/>
+    <mesh name="robot/link5_2" content_type="model/obj" file="link5_2.stl"/>
+    <mesh name="robot/link6_0" content_type="model/obj" file="link6_0.stl"/>
+    <mesh name="robot/link6_1" content_type="model/obj" file="link6_1.stl"/>
+    <mesh name="robot/link6_2" content_type="model/obj" file="link6_2.stl"/>
+    <mesh name="robot/link6_3" content_type="model/obj" file="link6_3.stl"/>
+    <mesh name="robot/link6_4" content_type="model/obj" file="link6_4.stl"/>
+    <mesh name="robot/link6_5" content_type="model/obj" file="link6_5.stl"/>
+    <mesh name="robot/link6_6" content_type="model/obj" file="link6_6.stl"/>
+    <mesh name="robot/link6_7" content_type="model/obj" file="link6_7.stl"/>
+    <mesh name="robot/link6_8" content_type="model/obj" file="link6_8.stl"/>
+    <mesh name="robot/link6_9" content_type="model/obj" file="link6_9.stl"/>
+    <mesh name="robot/link6_10" content_type="model/obj" file="link6_10.stl"/>
+    <mesh name="robot/link6_11" content_type="model/obj" file="link6_11.stl"/>
+    <mesh name="robot/link6_12" content_type="model/obj" file="link6_12.stl"/>
+    <mesh name="robot/link6_13" content_type="model/obj" file="link6_13.stl"/>
+    <mesh name="robot/link6_14" content_type="model/obj" file="link6_14.stl"/>
+    <mesh name="robot/link6_15" content_type="model/obj" file="link6_15.stl"/>
+    <mesh name="robot/link6_16" content_type="model/obj" file="link6_16.stl"/>
+    <mesh name="robot/link7_0" content_type="model/obj" file="link7_0.stl"/>
+    <mesh name="robot/link7_1" content_type="model/obj" file="link7_1.stl"/>
+    <mesh name="robot/link7_2" content_type="model/obj" file="link7_2.stl"/>
+    <mesh name="robot/link7_3" content_type="model/obj" file="link7_3.stl"/>
+    <mesh name="robot/link7_4" content_type="model/obj" file="link7_4.stl"/>
+    <mesh name="robot/link7_5" content_type="model/obj" file="link7_5.stl"/>
+    <mesh name="robot/link7_6" content_type="model/obj" file="link7_6.stl"/>
+    <mesh name="robot/link7_7" content_type="model/obj" file="link7_7.stl"/>
+    <mesh name="hand/r_mount" content_type="model/stl" file="r_mount.stl"/>
+    <mesh name="hand/r_wrist" content_type="model/stl" file="r_wrist.stl"/>
+    <mesh name="hand/r_thumb_proximal" content_type="model/stl" file="r_thumb_proximal.stl"/>
+    <mesh name="hand/r_thumb_proximal_abd" content_type="model/stl" file="r_thumb_proximal_abd.stl"/>
+    <mesh name="hand/r_thumb_middle" content_type="model/stl" file="r_thumb_middle.stl"/>
+    <mesh name="hand/r_thumb_distal" content_type="model/stl" file="r_thumb_distal.stl"/>
+    <mesh name="hand/r_thumb_tip_sensor_frame" content_type="model/stl" file="r_thumb_tip_sensor_frame.stl"/>
+    <mesh name="hand/r_index_finger_proximal" content_type="model/stl" file="r_index_finger_proximal.stl"/>
+    <mesh name="hand/r_index_finger_proximal_abd" content_type="model/stl" file="r_index_finger_proximal_abd.stl"/>
+    <mesh name="hand/r_index_finger_middle" content_type="model/stl" file="r_index_finger_middle.stl"/>
+    <mesh name="hand/r_index_finger_distal" content_type="model/stl" file="r_index_finger_distal.stl"/>
+    <mesh name="hand/r_index_finger_tip_sensor_frame" content_type="model/stl" file="r_index_finger_tip_sensor_frame.stl"/>
+    <mesh name="hand/r_middle_finger_proximal" content_type="model/stl" file="r_middle_finger_proximal.stl"/>
+    <mesh name="hand/r_middle_finger_proximal_abd" content_type="model/stl" file="r_middle_finger_proximal_abd.stl"/>
+    <mesh name="hand/r_middle_finger_middle" content_type="model/stl" file="r_middle_finger_middle.stl"/>
+    <mesh name="hand/r_middle_finger_distal" content_type="model/stl" file="r_middle_finger_distal.stl"/>
+    <mesh name="hand/r_middle_finger_tip_sensor_frame" content_type="model/stl" file="r_middle_finger_tip_sensor_frame.stl"/>
+    <mesh name="hand/r_ring_finger_proximal" content_type="model/stl" file="r_ring_finger_proximal.stl"/>
+    <mesh name="hand/r_ring_finger_proximal_abd" content_type="model/stl" file="r_ring_finger_proximal_abd.stl"/>
+    <mesh name="hand/r_ring_finger_middle" content_type="model/stl" file="r_ring_finger_middle.stl"/>
+    <mesh name="hand/r_ring_finger_distal" content_type="model/stl" file="r_ring_finger_distal.stl"/>
+    <mesh name="hand/r_ring_finger_tip_sensor_frame" content_type="model/stl" file="r_ring_finger_tip_sensor_frame.stl"/>
+    <mesh name="hand/r_pinky_proximal" content_type="model/stl" file="r_pinky_proximal.stl"/>
+    <mesh name="hand/r_pinky_proximal_abd" content_type="model/stl" file="r_pinky_proximal_abd.stl"/>
+    <mesh name="hand/r_pinky_middle" content_type="model/stl" file="r_pinky_middle.stl"/>
+    <mesh name="hand/r_pinky_distal" content_type="model/stl" file="r_pinky_distal.stl"/>
+    <mesh name="hand/r_pinky_tip_sensor_frame" content_type="model/stl" file="r_pinky_tip_sensor_frame.stl"/>
+    <mesh name="lamp_base/lamp_base_col00" content_type="model/obj" file="lamp_base_col00.stl"/>
+    <mesh name="lamp_base/lamp_base_col01" content_type="model/obj" file="lamp_base_col01.stl"/>
+    <mesh name="lamp_base/lamp_base_col02" content_type="model/obj" file="lamp_base_col02.stl"/>
+    <mesh name="lamp_base/lamp_base_col03" content_type="model/obj" file="lamp_base_col03.stl"/>
+    <mesh name="lamp_base/lamp_base_col04" content_type="model/obj" file="lamp_base_col04.stl"/>
+    <mesh name="lamp_base/lamp_base_col05" content_type="model/obj" file="lamp_base_col05.stl"/>
+    <mesh name="lamp_base/lamp_base_col06" content_type="model/obj" file="lamp_base_col06.stl"/>
+    <mesh name="lamp_base/lamp_base_col07" content_type="model/obj" file="lamp_base_col07.stl"/>
+    <mesh name="lamp_base/lamp_base_col08" content_type="model/obj" file="lamp_base_col08.stl"/>
+    <mesh name="lamp_base/lamp_base_col09" content_type="model/obj" file="lamp_base_col09.stl"/>
+    <mesh name="lamp_base/lamp_base_col10" content_type="model/obj" file="lamp_base_col10.stl"/>
+    <mesh name="lamp_base/lamp_base_col11" content_type="model/obj" file="lamp_base_col11.stl"/>
+    <mesh name="lamp_base/lamp_base_col12" content_type="model/obj" file="lamp_base_col12.stl"/>
+    <mesh name="lamp_base/lamp_base_col13" content_type="model/obj" file="lamp_base_col13.stl"/>
+    <mesh name="lamp_base/lamp_base_col14" content_type="model/obj" file="lamp_base_col14.stl"/>
+    <mesh name="lamp_base/lamp_base_col15" content_type="model/obj" file="lamp_base_col15.stl"/>
+    <mesh name="lamp_base/lamp_base_col16" content_type="model/obj" file="lamp_base_col16.stl"/>
+    <mesh name="lamp_bulb/lamp_bulb_col00" content_type="model/obj" file="lamp_bulb_col00.stl"/>
+    <mesh name="lamp_bulb/lamp_bulb_col01" content_type="model/obj" file="lamp_bulb_col01.stl"/>
+    <mesh name="lamp_bulb/lamp_bulb_col02" content_type="model/obj" file="lamp_bulb_col02.stl"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" pos="0 0 -0.76" size="0 0 0.05" type="plane" condim="4" solref="0.01"/>
+    <light name="robot/top" pos="0 0 2" mode="trackcom"/>
+    <body name="robot/link0" childclass="robot/panda" gravcomp="1">
+      <inertial pos="-0.041018 -0.00014 0.049974" quat="0.00630474 0.751245 0.00741774 0.659952" mass="0.629769" diaginertia="0.00430465 0.00387984 0.00313051"/>
+      <geom class="robot/visual" density="0" material="robot/off_white" mesh="robot/link0_0"/>
+      <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link0_1"/>
+      <geom class="robot/visual" density="0" material="robot/off_white" mesh="robot/link0_2"/>
+      <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link0_3"/>
+      <geom class="robot/visual" density="0" material="robot/off_white" mesh="robot/link0_4"/>
+      <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link0_5"/>
+      <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link0_7"/>
+      <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link0_8"/>
+      <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link0_9"/>
+      <geom class="robot/visual" density="0" material="robot/off_white" mesh="robot/link0_10"/>
+      <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link0_11"/>
+      <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link0_c"/>
+      <body name="robot/link1" pos="0 0 0.333" gravcomp="1">
+        <inertial pos="0.003875 0.002081 -0.04762" quat="0.711549 0.00634377 -0.0131124 0.702485" mass="4.97068" diaginertia="0.707137 0.703435 0.00852456"/>
+        <joint name="robot/joint1" armature="1"/>
+        <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link1"/>
+        <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link1_c"/>
+        <body name="robot/link2" quat="0.707107 -0.707107 0 0" gravcomp="1">
+          <inertial pos="-0.003141 -0.02872 0.003495" quat="-0.168175 0.828366 -0.122878 0.520027" mass="0.646926" diaginertia="0.0310326 0.0283001 0.00273425"/>
+          <joint name="robot/joint2" range="-1.7628 1.7628" armature="1"/>
+          <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link2"/>
+          <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link2_c"/>
+          <body name="robot/link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0" gravcomp="1">
+            <inertial pos="0.027518 0.039252 -0.066502" quat="0.662769 -0.00678331 0.252053 0.705096" mass="3.2286" diaginertia="0.0415014 0.0414793 0.00124635"/>
+            <joint name="robot/joint3" armature="0.8"/>
+            <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link3_0"/>
+            <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link3_1"/>
+            <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link3_2"/>
+            <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link3_3"/>
+            <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link3_c"/>
+            <body name="robot/link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0" gravcomp="1">
+              <inertial pos="-0.05317 0.104419 0.027454" quat="0.65058 0.529822 -0.0962034 0.535518" mass="3.5879" diaginertia="0.0349596 0.0281483 0.0106201"/>
+              <joint name="robot/joint4" range="-3.0718 -0.0698" armature="0.8"/>
+              <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link4_0"/>
+              <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link4_1"/>
+              <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link4_2"/>
+              <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link4_3"/>
+              <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link4_c"/>
+              <body name="robot/link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0" gravcomp="1">
+                <inertial pos="-0.011953 0.041065 -0.038437" quat="0.987313 -0.0121954 0.0719187 -0.141037" mass="1.22595" diaginertia="0.0367625 0.0288531 0.00803437"/>
+                <joint name="robot/joint5" armature="0.5"/>
+                <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link5_0"/>
+                <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link5_1"/>
+                <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link5_2"/>
+                <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link5_c0"/>
+                <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link5_c1"/>
+                <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link5_c2"/>
+                <body name="robot/link6" quat="0.707107 0.707107 0 0" gravcomp="1">
+                  <inertial pos="0.060149 -0.014117 -0.010517" quat="0.101075 0.59332 0.0287227 0.798079" mass="1.66656" diaginertia="0.00584276 0.00431037 0.00159787"/>
+                  <joint name="robot/joint6" range="-0.0175 3.7525" armature="0.5"/>
+                  <geom class="robot/visual" density="0" material="robot/off_white" mesh="robot/link6_0"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_1"/>
+                  <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link6_2"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_3"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_4"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_5"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_6"/>
+                  <geom class="robot/visual" density="0" material="robot/light_blue" mesh="robot/link6_7"/>
+                  <geom class="robot/visual" density="0" material="robot/light_blue" mesh="robot/link6_8"/>
+                  <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link6_9"/>
+                  <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link6_10"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_11"/>
+                  <geom class="robot/visual" density="0" material="robot/green" mesh="robot/link6_12"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_13"/>
+                  <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link6_14"/>
+                  <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link6_15"/>
+                  <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link6_16"/>
+                  <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link6_c"/>
+                  <body name="robot/link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0" gravcomp="1">
+                    <inertial pos="0.010517 -0.004252 0.061597" quat="0.992939 -0.0762041 0.0733595 -0.0537067" mass="0.735522" diaginertia="0.0127345 0.0101055 0.00451803"/>
+                    <joint name="robot/joint7" armature="0.5"/>
+                    <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link7_0"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_1"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_2"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_3"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_4"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_5"/>
+                    <geom class="robot/visual" density="0" material="robot/black" mesh="robot/link7_6"/>
+                    <geom class="robot/visual" density="0" material="robot/white" mesh="robot/link7_7"/>
+                    <geom class="robot/collision" condim="4" solref="0.01" mesh="robot/link7_c"/>
+                    <body name="robot/attachment" pos="0 0 0.107" quat="0.382683 0 0 0.92388" gravcomp="1">
+                      <site name="robot/attachment_site"/>
+                      <body name="hand/r_mount" quat="0 1 0 0" gravcomp="1">
+                        <inertial pos="-0.00285956 -0.00108266 -0.0169824" quat="-0.182921 0.517511 -0.0613389 0.833642" mass="0.069" diaginertia="2.60409e-05 2.50871e-05 1.69216e-05"/>
+                        <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.627451 0.627451 0.627451 1" mesh="hand/r_mount"/>
+                        <body name="hand/r_wrist" pos="0.003 0.00025016 -0.0285" quat="1 0 0 8.1995e-06" gravcomp="1">
+                          <inertial pos="-0.0035429 -0.00346747 -0.035695" quat="0.692744 -0.107803 -0.0416979 0.711861" mass="0.2323" diaginertia="0.000155671 9.95645e-05 7.71546e-05"/>
+                          <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_wrist"/>
+                          <body name="hand/r_thumb_proximal" pos="0.0172101 0.00813796 -0.016457" quat="0.629432 -0.0606505 -0.720105 0.285633" gravcomp="1">
+                            <inertial pos="0.000853657 -0.00195618 -0.00731809" quat="0.926535 0.017864 -0.0783162 -0.367534" mass="0.011" diaginertia="8.38654e-07 7.81045e-07 6.3308e-07"/>
+                            <joint name="hand/r_thumb_cmc_flex" range="-1.187 1.291" actuatorfrcrange="-0.6 0.6" armature="0.0105" axis="1 0 0"/>
+                            <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.627451 0.627451 0.627451 1" mesh="hand/r_thumb_proximal"/>
+                            <body name="hand/r_thumb_proximal_abd" pos="0.000247879 -0.00053658 -0.0147535" quat="0.934711 0.0919299 0.342518 -0.0233669" gravcomp="1">
+                              <inertial pos="1.27934e-05 6.47331e-06 -0.0130544" quat="0.514054 -0.00124335 -0.00239204 0.857754" mass="0.0336" diaginertia="4.2288e-06 4.08475e-06 1.2356e-06"/>
+                              <joint name="hand/r_thumb_cmc_abd" range="-1.484 0.698" actuatorfrcrange="-0.6 0.6" armature="0.0105" axis="0 1 0"/>
+                              <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.627451 0.627451 0.627451 1" mesh="hand/r_thumb_proximal_abd"/>
+                              <body name="hand/r_thumb_middle" pos="0 0 -0.0325" quat="0.959136 -0.012206 0.0418768 0.279563" gravcomp="1">
+                                <inertial pos="-4.92924e-05 4.31169e-08 -0.0143056" quat="0.70627 -3.2641e-05 -3.35882e-05 0.707942" mass="0.0358" diaginertia="4.92859e-06 4.8196e-06 1.32688e-06"/>
+                                <joint name="hand/r_thumb_mcp" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.627451 0.627451 0.627451 1" mesh="hand/r_thumb_middle"/>
+                                <body name="hand/r_thumb_distal" pos="-5e-05 0 -0.035" gravcomp="1">
+                                  <inertial pos="-0.000170796 -0.00316013 -0.0082453" quat="0.708967 -0.104166 0.0917267 0.691449" mass="0.0109" diaginertia="1.20448e-06 1.17392e-06 2.8376e-07"/>
+                                  <joint name="hand/r_thumb_ip" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                  <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_thumb_distal"/>
+                                  <body name="hand/r_thumb_tip" pos="0 0 -0.02978" gravcomp="1"/>
+                                  <body name="hand/r_thumb_tip_sensor_frame" gravcomp="1">
+                                    <inertial pos="-2.55623e-07 0.0017603 -0.0169902" quat="0.69415 -0.134646 0.134795 0.694159" mass="0.0063" diaginertia="3.99117e-07 3.1034e-07 2.28268e-07"/>
+                                    <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.55 0.78 0.95 1" mesh="hand/r_thumb_tip_sensor_frame"/>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                          <body name="hand/r_index_finger_proximal" pos="0.0226609 -0.00332513 -0.069975" quat="0.996267 -0.0163877 -0.0693676 0.0486925" gravcomp="1">
+                            <inertial pos="1.83161e-09 -0.00178137 -0.00760139" quat="0.999275 -0.0380628 0 0" mass="0.0116" diaginertia="9.19684e-07 9.08608e-07 7.88412e-07"/>
+                            <joint name="hand/r_index_finger_mcp_flex" range="-1.047 1.57" actuatorfrcrange="-2 2" armature="0.0105" axis="1 0 0"/>
+                            <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_index_finger_proximal"/>
+                            <body name="hand/r_index_finger_proximal_abd" pos="0 -0.00120098 -0.0145" gravcomp="1">
+                              <inertial pos="8.04675e-08 7.30404e-07 -0.0187994" quat="0.983237 -1.60588e-05 3.84243e-06 0.18233" mass="0.0339" diaginertia="7.01589e-06 7.01555e-06 9.1448e-07"/>
+                              <joint name="hand/r_index_finger_mcp_abd" range="-0.698 0.698" actuatorfrcrange="-0.2 0.2" armature="0.0105" axis="0 1 0"/>
+                              <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_index_finger_proximal_abd"/>
+                              <body name="hand/r_index_finger_middle" pos="0 0 -0.0376" gravcomp="1">
+                                <inertial pos="-5.07335e-08 -0.000247887 -0.0190348" quat="0.707235 0.0108069 -0.0107958 0.706814" mass="0.0212" diaginertia="2.47797e-06 2.40525e-06 6.52478e-07"/>
+                                <joint name="hand/r_index_finger_pip" range="-1.047 2.094" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_index_finger_middle"/>
+                                <body name="hand/r_index_finger_distal" pos="0 0 -0.0295" gravcomp="1">
+                                  <inertial pos="0.000767406 -0.00278779 -0.00722744" quat="0.694224 -0.0547655 0.145916 0.702683" mass="0.005" diaginertia="4.8327e-07 3.88593e-07 1.78665e-07"/>
+                                  <joint name="hand/r_index_finger_dip" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                  <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_index_finger_distal"/>
+                                  <body name="hand/r_index_finger_tip" pos="0 0 -0.02475" gravcomp="1"/>
+                                  <body name="hand/r_index_finger_tip_sensor_frame" gravcomp="1">
+                                    <inertial pos="2.9515e-07 0.00147203 -0.0149387" quat="0.690344 -0.153231 0.153369 0.690235" mass="0.003" diaginertia="1.25973e-07 1.00794e-07 6.27665e-08"/>
+                                    <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.55 0.78 0.95 1" mesh="hand/r_index_finger_tip_sensor_frame"/>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                          <body name="hand/r_middle_finger_proximal" pos="0.000952064 -0.00830298 -0.07392" quat="0.999841 -0.016952 0.00552374 -0.000264056" gravcomp="1">
+                            <inertial pos="1.83161e-09 -0.00178137 -0.00760139" quat="0.999275 -0.0380628 0 0" mass="0.0116" diaginertia="9.19684e-07 9.08608e-07 7.88412e-07"/>
+                            <joint name="hand/r_middle_finger_mcp_flex" range="-1.047 1.57" actuatorfrcrange="-2 2" armature="0.0105" axis="1 0 0"/>
+                            <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_middle_finger_proximal"/>
+                            <body name="hand/r_middle_finger_proximal_abd" pos="0 -0.00120098 -0.0145" gravcomp="1">
+                              <inertial pos="8.04675e-08 7.30404e-07 -0.0187994" quat="0.983237 -1.60588e-05 3.84243e-06 0.18233" mass="0.0339" diaginertia="7.01589e-06 7.01555e-06 9.1448e-07"/>
+                              <joint name="hand/r_middle_finger_mcp_abd" range="-0.698 0.698" actuatorfrcrange="-0.2 0.2" armature="0.0105" axis="0 1 0"/>
+                              <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_middle_finger_proximal_abd"/>
+                              <body name="hand/r_middle_finger_middle" pos="0 0 -0.0376" gravcomp="1">
+                                <inertial pos="-5.07335e-08 -0.000247887 -0.0190348" quat="0.707235 0.0108069 -0.0107958 0.706814" mass="0.0212" diaginertia="2.47797e-06 2.40525e-06 6.52478e-07"/>
+                                <joint name="hand/r_middle_finger_pip" range="-1.047 2.094" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_middle_finger_middle"/>
+                                <body name="hand/r_middle_finger_distal" pos="0 0 -0.0295" gravcomp="1">
+                                  <inertial pos="0.000767406 -0.00278779 -0.00722744" quat="0.694224 -0.0547655 0.145916 0.702683" mass="0.005" diaginertia="4.8327e-07 3.88593e-07 1.78665e-07"/>
+                                  <joint name="hand/r_middle_finger_dip" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                  <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_middle_finger_distal"/>
+                                  <body name="hand/r_middle_finger_tip" pos="0 0 -0.02475" gravcomp="1"/>
+                                  <body name="hand/r_middle_finger_tip_sensor_frame" gravcomp="1">
+                                    <inertial pos="2.9515e-07 0.00147203 -0.0149387" quat="0.690344 -0.153231 0.153369 0.690235" mass="0.003" diaginertia="1.25973e-07 1.00794e-07 6.27665e-08"/>
+                                    <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.55 0.78 0.95 1" mesh="hand/r_middle_finger_tip_sensor_frame"/>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                          <body name="hand/r_ring_finger_proximal" pos="-0.0197441 -0.00559294 -0.0654" quat="0.996897 -0.00588524 0.0709958 -0.0334774" gravcomp="1">
+                            <inertial pos="1.83161e-09 -0.00178137 -0.00760139" quat="0.999275 -0.0380628 0 0" mass="0.0116" diaginertia="9.19684e-07 9.08608e-07 7.88412e-07"/>
+                            <joint name="hand/r_ring_finger_mcp_flex" range="-1.047 1.57" actuatorfrcrange="-2 2" armature="0.0105" axis="1 0 0"/>
+                            <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_ring_finger_proximal"/>
+                            <body name="hand/r_ring_finger_proximal_abd" pos="0 -0.00120098 -0.0145" gravcomp="1">
+                              <inertial pos="8.04675e-08 7.30404e-07 -0.0187994" quat="0.983237 -1.60588e-05 3.84243e-06 0.18233" mass="0.0339" diaginertia="7.01589e-06 7.01555e-06 9.1448e-07"/>
+                              <joint name="hand/r_ring_finger_mcp_abd" range="-0.698 0.698" actuatorfrcrange="-0.2 0.2" armature="0.0105" axis="0 1 0"/>
+                              <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_ring_finger_proximal_abd"/>
+                              <body name="hand/r_ring_finger_middle" pos="0 0 -0.0376" gravcomp="1">
+                                <inertial pos="-5.07335e-08 -0.000247887 -0.0190348" quat="0.707235 0.0108069 -0.0107958 0.706814" mass="0.0212" diaginertia="2.47797e-06 2.40525e-06 6.52478e-07"/>
+                                <joint name="hand/r_ring_finger_pip" range="-1.047 2.094" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_ring_finger_middle"/>
+                                <body name="hand/r_ring_finger_distal" pos="0 0 -0.0295" gravcomp="1">
+                                  <inertial pos="0.000767406 -0.00278779 -0.00722744" quat="0.694224 -0.0547655 0.145916 0.702683" mass="0.005" diaginertia="4.8327e-07 3.88593e-07 1.78665e-07"/>
+                                  <joint name="hand/r_ring_finger_dip" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                  <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_ring_finger_distal"/>
+                                  <body name="hand/r_ring_finger_tip" pos="0 0 -0.02475" gravcomp="1"/>
+                                  <body name="hand/r_ring_finger_tip_sensor_frame" gravcomp="1">
+                                    <inertial pos="2.9515e-07 0.00147203 -0.0149387" quat="0.690344 -0.153231 0.153369 0.690235" mass="0.003" diaginertia="1.25973e-07 1.00794e-07 6.27665e-08"/>
+                                    <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.55 0.78 0.95 1" mesh="hand/r_ring_finger_tip_sensor_frame"/>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                          <body name="hand/r_pinky_proximal" pos="-0.037351 -0.000733757 -0.055296" quat="0.98999 -0.00638539 0.124818 -0.0655694" gravcomp="1">
+                            <inertial pos="-2.12648e-07 -0.00178136 -0.00760145" quat="0.999275 -0.0380615 2.43184e-05 0.000106967" mass="0.0116" diaginertia="9.19664e-07 9.08603e-07 7.88413e-07"/>
+                            <joint name="hand/r_pinky_mcp_flex" range="-1.047 1.57" actuatorfrcrange="-2 2" armature="0.0105" axis="1 0 0"/>
+                            <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_pinky_proximal"/>
+                            <body name="hand/r_pinky_proximal_abd" pos="0 -0.00120098 -0.0145" quat="1 0 0 1.81365e-05" gravcomp="1">
+                              <inertial pos="1.55647e-06 5.4532e-07 -0.016785" quat="0.762177 -7.77124e-06 3.02081e-05 0.647368" mass="0.0304" diaginertia="5.38014e-06 5.37944e-06 8.1771e-07"/>
+                              <joint name="hand/r_pinky_mcp_abd" range="-0.698 0.698" actuatorfrcrange="-0.2 0.2" armature="0.0105" axis="0 1 0"/>
+                              <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_pinky_proximal_abd"/>
+                              <body name="hand/r_pinky_middle" pos="0.0001 0 -0.0336" quat="1 0 0 -1.81365e-05" gravcomp="1">
+                                <inertial pos="-3.23236e-07 -0.000264491 -0.0178807" quat="0.707241 0.0112918 -0.0112863 0.706792" mass="0.0188" diaginertia="2.05957e-06 1.98647e-06 5.84911e-07"/>
+                                <joint name="hand/r_pinky_pip" range="-1.047 2.094" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="1 1 1 1" mesh="hand/r_pinky_middle"/>
+                                <body name="hand/r_pinky_distal" pos="0 0 -0.0275" gravcomp="1">
+                                  <inertial pos="0.000767406 -0.00278779 -0.00722744" quat="0.694224 -0.0547655 0.145916 0.702683" mass="0.005" diaginertia="4.8327e-07 3.88593e-07 1.78665e-07"/>
+                                  <joint name="hand/r_pinky_dip" range="-1.047 1.57" actuatorfrcrange="-0.3 0.3" armature="0.0105" axis="1 0 0"/>
+                                  <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.792157 0.819608 0.933333 1" mesh="hand/r_pinky_distal"/>
+                                  <body name="hand/r_pinky_tip" pos="0 0 -0.02475" gravcomp="1"/>
+                                  <body name="hand/r_pinky_tip_sensor_frame" gravcomp="1">
+                                    <inertial pos="2.95139e-07 0.00147203 -0.0149387" quat="0.690344 -0.153231 0.153369 0.690235" mass="0.003" diaginertia="1.25973e-07 1.00794e-07 6.27665e-08"/>
+                                    <geom type="mesh" condim="4" friction="1.5 0.01" solref="0.004" solimp="0.95 0.99" rgba="0.55 0.78 0.95 1" mesh="hand/r_pinky_tip_sensor_frame"/>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="lamp_base/lamp_base" pos="0.56 -0.12 0.0177">
+      <inertial pos="3e-06 2.2e-05 0.002661" quat="0.524698 0.473715 -0.527897 0.470756" mass="0.066973" diaginertia="5.71223e-05 4.8486e-05 4.84826e-05"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col00"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col01"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col02"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col03"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col04"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col05"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col06"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col07"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col08"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col09"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col10"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col11"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col12"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col13"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col14"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col15"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.01" mesh="lamp_base/lamp_base_col16"/>
+    </body>
+    <body name="lamp_bulb/lamp_bulb" pos="0.660639 0.00158522 0.0242966" quat="0.0510484 -0.00481021 0.651956 0.756522">
+      <inertial pos="0 0 0.022597" quat="0.382691 -5.79952e-06 -1.59552e-05 0.923876" mass="0.085718" diaginertia="8.28231e-05 8.28229e-05 2.6311e-05"/>
+      <joint type="free"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.004" solimp="0.95 0.99" mesh="lamp_bulb/lamp_bulb_col00"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.004" solimp="0.95 0.99" mesh="lamp_bulb/lamp_bulb_col01"/>
+      <geom type="mesh" condim="4" friction="0.8" solref="0.004" solimp="0.95 0.99" mesh="lamp_bulb/lamp_bulb_col02"/>
+    </body>
+    <body name="table" pos="0.45 0 -0.02">
+      <geom size="0.5 0.7 0.02" type="box" condim="4" solref="0.01"/>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="robot/link0" body2="robot/link1"/>
+    <exclude body1="robot/link1" body2="robot/link2"/>
+    <exclude body1="robot/link2" body2="robot/link3"/>
+    <exclude body1="robot/link3" body2="robot/link4"/>
+    <exclude body1="robot/link4" body2="robot/link5"/>
+    <exclude body1="robot/link4" body2="hand/r_index_finger_proximal_abd"/>
+    <exclude body1="robot/link4" body2="hand/r_index_finger_middle"/>
+    <exclude body1="robot/link4" body2="hand/r_middle_finger_middle"/>
+    <exclude body1="robot/link4" body2="hand/r_middle_finger_distal"/>
+    <exclude body1="robot/link5" body2="robot/link6"/>
+    <exclude body1="robot/link6" body2="robot/link7"/>
+    <exclude body1="robot/link6" body2="hand/r_mount"/>
+    <exclude body1="robot/link6" body2="hand/r_wrist"/>
+    <exclude body1="robot/link7" body2="hand/r_mount"/>
+    <exclude body1="robot/link7" body2="hand/r_wrist"/>
+    <exclude body1="hand/r_mount" body2="hand/r_wrist"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_thumb_proximal"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_thumb_proximal_abd"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_index_finger_proximal"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_index_finger_proximal_abd"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_middle_finger_proximal"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_ring_finger_proximal"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_ring_finger_proximal_abd"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_pinky_proximal"/>
+    <exclude body1="hand/r_wrist" body2="hand/r_pinky_proximal_abd"/>
+    <exclude body1="hand/r_thumb_proximal" body2="hand/r_thumb_proximal_abd"/>
+    <exclude body1="hand/r_thumb_proximal_abd" body2="hand/r_thumb_middle"/>
+    <exclude body1="hand/r_thumb_middle" body2="hand/r_thumb_distal"/>
+    <exclude body1="hand/r_index_finger_proximal" body2="hand/r_index_finger_proximal_abd"/>
+    <exclude body1="hand/r_index_finger_proximal_abd" body2="hand/r_index_finger_middle"/>
+    <exclude body1="hand/r_index_finger_middle" body2="hand/r_index_finger_distal"/>
+    <exclude body1="hand/r_middle_finger_proximal" body2="hand/r_middle_finger_proximal_abd"/>
+    <exclude body1="hand/r_middle_finger_proximal_abd" body2="hand/r_middle_finger_middle"/>
+    <exclude body1="hand/r_middle_finger_middle" body2="hand/r_middle_finger_distal"/>
+    <exclude body1="hand/r_ring_finger_proximal" body2="hand/r_ring_finger_proximal_abd"/>
+    <exclude body1="hand/r_ring_finger_proximal_abd" body2="hand/r_ring_finger_middle"/>
+    <exclude body1="hand/r_ring_finger_middle" body2="hand/r_ring_finger_distal"/>
+    <exclude body1="hand/r_pinky_proximal" body2="hand/r_pinky_proximal_abd"/>
+    <exclude body1="hand/r_pinky_proximal_abd" body2="hand/r_pinky_middle"/>
+    <exclude body1="hand/r_pinky_middle" body2="hand/r_pinky_distal"/>
+  </contact>
+
+  <keyframe>
+    <key name="robot/home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.660639 0.00158522 0.0242966 0.0510484 -0.00481021 0.651956 0.756522"/>
+  </keyframe>
+</mujoco>
