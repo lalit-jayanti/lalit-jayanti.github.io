@@ -641,5 +641,12 @@ function renderInfo(info) {
   info.innerHTML = `
     <div class="cg-info">
       <h2>Dexterous light-bulb assembly</h2>
+      <div class="cg-section-title">Credits</div>
+      <p class="cg-credits">Physics by <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> (WebAssembly build),
+      inference by <a href="https://onnxruntime.ai" target="_blank" rel="noopener">ONNX Runtime Web</a>, rendering by
+      <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>. Lamp model from
+      <a href="https://github.com/clvrai/furniture-bench" target="_blank" rel="noopener">FurnitureBench</a>. Franka Panda model from
+      <a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank" rel="noopener">MuJoCo Menagerie</a>;
+      hand model by Wuji Technology.</p>
     </div>`;
 }
