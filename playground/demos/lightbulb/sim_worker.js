@@ -2,7 +2,8 @@
 // and takes perturbations (drag, knock, open hand, move bulb) from it.
 import { LightbulbController } from './controller.js';
 
-const MUJOCO_URL = 'https://cdn.jsdelivr.net/npm/@mujoco/mujoco@3.13.0/mujoco.js';
+const MUJOCO_URL = 'https://cdn.jsdelivr.net/npm/@mujoco/mujoco@4.0.0/mujoco.js';
+const MUJOCO_BYTES = 11.2e6; // mujoco.wasm, for the progress bar
 const ORT_URL = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.bundle.min.mjs';
 const ASSETS = new URL('./assets/', import.meta.url);
 
@@ -59,7 +60,7 @@ async function init() {
   ]);
   starts = startList;
   const meshFiles = [...new Set([...xml.matchAll(/file="([^"]+)"/g)].map((m) => m[1]))];
-  const total = 10.2e6 + 11e6 + 1.1e6 + 5.3e6;
+  const total = MUJOCO_BYTES + 11e6 + 1.1e6 + 5.3e6;
   let got = 0;
   const bump = (n) => {
     got += n;
@@ -68,7 +69,7 @@ async function init() {
   const [mj, ortMod, policyBytes, meshes] = await Promise.all([
     import(MUJOCO_URL).then(async (m) => {
       const mod = await m.default();
-      bump(10.2e6);
+      bump(MUJOCO_BYTES);
       return mod;
     }),
     import(ORT_URL).then((m) => {
