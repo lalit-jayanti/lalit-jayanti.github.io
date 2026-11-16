@@ -197,7 +197,7 @@ export async function mount(root, info) {
     const [Klo, Khi] = config.stiffness_range;
     const slider = panel.querySelector('input[type=range]');
     const kLabel = panel.querySelector('.cg-value');
-    let motionId = 'dance';
+    let motionId = 'stand';
     let paused = false;
     let fallTime = 0;
     let push = null;
