@@ -413,6 +413,7 @@
     }
     .play-card:hover { border-color: var(--g1); }
     .play-card:hover::after { width: 100%; }
+    .play-card + .play-card { margin-top: 0.6rem; }
     .play-title { font-size: 0.9375rem; font-weight: 500; }
     .play-sub { font-family: var(--mono); font-size: 0.66rem; color: var(--gray-2); margin-top: 0.1rem; }
     .play-desc { font-size: 0.8125rem; color: var(--gray-2); font-weight: 300; margin-top: 0.35rem; }
@@ -638,6 +639,12 @@
       <div>
         <div class="play-title">Dexterous light-bulb assembly</div>
         <div class="play-sub">Franka + five-finger hand · MuJoCo · runs in your browser</div>
+      </div>
+      <span class="play-go">Open →</span>
+    </a>
+    <a class="play-card" href="playground/#cgmt">
+      <div>
+        <div class="play-title">Compliant General Motion Tracker</div>
       </div>
       <span class="play-go">Open →</span>
     </a>
