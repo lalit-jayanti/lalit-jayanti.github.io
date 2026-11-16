@@ -42,6 +42,9 @@
       <span class="chip-title">Dexterous light-bulb assembly</span>
       <span class="chip-sub">Franka + five-finger hand · MuJoCo</span>
     </button>
+    <button class="demo-chip" role="tab" aria-selected="false" data-demo="cgmt">
+      <span class="chip-title">Compliant General Motion Tracker</span>
+    </button>
   </div>
 </div>
 
@@ -60,6 +63,7 @@
 <script type="module">
   const DEMOS = {
     'lightbulb': () => import('./demos/lightbulb/demo.js'),
+    'cgmt': () => import('./demos/g1-tracking/demo.js'),
   };
   const root = document.getElementById('demo-root');
   const info = document.getElementById('demo-info');

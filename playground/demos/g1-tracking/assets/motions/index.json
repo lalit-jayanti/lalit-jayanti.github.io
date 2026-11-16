@@ -1,0 +1,6 @@
+[
+  { "id": "stand", "label": "Stand" },
+  { "id": "dance", "label": "Dance" },
+  { "id": "walk_circle", "label": "Walk in a circle" },
+  { "id": "tpose", "label": "T-pose" }
+]
