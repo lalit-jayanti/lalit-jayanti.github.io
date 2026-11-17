@@ -66,6 +66,7 @@ export class Controller {
     this.target = Float64Array.from(this.q0);
     this.stiffness = 150;
     this.clip = null;
+    this.walk = null; // keyboard-walk motion matcher, used instead of a clip when set
     this.frame = 0;
     this.yaw = 0;
     this.fresh = true;
@@ -75,15 +76,22 @@ export class Controller {
 
   setClip(clip) {
     this.clip = clip;
+    this.walk = null;
     this.restart();
   }
 
-  // Start the clip from frame 0, turned to face the robot's current heading.
+  setWalk(matcher) {
+    this.walk = matcher;
+    this.restart();
+  }
+
+  // Start the clip from frame 0 (or the walk from standing), turned to face the robot's current heading.
   restart() {
     this.frame = 0;
     this.prevAction.fill(0);
     this.fresh = true;
-    this.yaw = yawOf(this.imuQuat()) - yawOf(this.clip.root_quat[0]);
+    if (this.walk) this.walk.reset(yawOf(this.imuQuat()));
+    else this.yaw = yawOf(this.imuQuat()) - yawOf(this.clip.root_quat[0]);
   }
 
   // Place the robot standing at the origin in its default pose, at rest.
@@ -136,34 +144,41 @@ export class Controller {
   }
 
   buildGoal() {
+    const Rr = quatToR(this.imuQuat());
+    if (this.walk) {
+      for (let k = 0; k < this.cfg.goal_frames; k++) {
+        const s = this.walk.sample(this.cfg.goal_stride * k);
+        this.fillGoal(k, s.dof, s.dofv, quatToR(s.quat), Rr);
+      }
+      return this.goal;
+    }
     const c = this.clip;
     const n = c.frames;
-    const Rr = quatToR(this.imuQuat());
-    const F = 2 * J + 6;
     for (let k = 0; k < this.cfg.goal_frames; k++) {
       let t = this.frame + this.cfg.goal_stride * k;
       const lap = Math.floor(t / n);
       t -= lap * n;
       const yaw = this.yaw + lap * c.lap_yaw;
       const qRef = quatMul(yawQuat(yaw), c.root_quat[t]);
-      const Rf = quatToR(qRef);
-      const g = this.goal;
-      const base = k * F;
-      const dp = c.dof_pos[t];
-      const dv = c.dof_vel[t];
-      for (let j = 0; j < J; j++) {
-        g[base + j] = dp[j];
-        g[base + J + j] = dv[j];
-      }
-      // rel = Rr^T Rf; first two columns, row-major: [r00, r01, r10, r11, r20, r21]
-      for (let r = 0; r < 3; r++) {
-        for (let col = 0; col < 2; col++) {
-          g[base + 2 * J + 2 * r + col] =
-            Rr[0 * 3 + r] * Rf[0 * 3 + col] + Rr[1 * 3 + r] * Rf[1 * 3 + col] + Rr[2 * 3 + r] * Rf[2 * 3 + col];
-        }
-      }
+      this.fillGoal(k, c.dof_pos[t], c.dof_vel[t], quatToR(qRef), Rr);
     }
     return this.goal;
+  }
+
+  fillGoal(k, dp, dv, Rf, Rr) {
+    const g = this.goal;
+    const base = k * (2 * J + 6);
+    for (let j = 0; j < J; j++) {
+      g[base + j] = dp[j];
+      g[base + J + j] = dv[j];
+    }
+    // rel = Rr^T Rf; first two columns, row-major: [r00, r01, r10, r11, r20, r21]
+    for (let r = 0; r < 3; r++) {
+      for (let col = 0; col < 2; col++) {
+        g[base + 2 * J + 2 * r + col] =
+          Rr[0 * 3 + r] * Rf[0 * 3 + col] + Rr[1 * 3 + r] * Rf[1 * 3 + col] + Rr[2 * 3 + r] * Rf[2 * 3 + col];
+      }
+    }
   }
 
   async act() {
@@ -212,6 +227,10 @@ export class Controller {
 
   advance() {
     this.prevAction.set(this.action);
+    if (this.walk) {
+      this.walk.advance();
+      return;
+    }
     this.frame += 1;
     if (this.frame >= this.clip.frames) {
       this.frame -= this.clip.frames;

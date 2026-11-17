@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { Controller } from './controller.js';
+import { WalkMatcher, parseLibrary, commandFromKeys } from './walk.js';
 
 const MUJOCO_URL = 'https://cdn.jsdelivr.net/npm/@mujoco/mujoco@4.0.0/mujoco.js';
 const ORT_URL = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.bundle.min.mjs';
@@ -15,6 +16,8 @@ const DRAG_MAX = 260; // N
 const PUSH_FORCE = 180; // N
 const PUSH_TIME = 0.2; // s
 const VISUAL_GROUP = 2;
+const WALK = 'walk';
+const WALK_KEYS = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', KeyQ: 'q', KeyE: 'e' };
 
 const ICONS = {
   play: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>',
@@ -103,7 +106,9 @@ export async function mount(root, info) {
   const hint = el('div', 'cg-hint', '<b>Drag the robot</b> to push it<span class="more"> · drag elsewhere to orbit · scroll to zoom</span>');
   const forceBox = el('div', 'cg-force', 'Force <span>0 N</span><div class="bar"><i></i></div>');
   const toast = el('div', 'cg-toast');
-  stage.append(hint, forceBox, toast);
+  const keypad = el('div', 'cg-keys', ['q', 'w', 'e', 'a', 's', 'd'].map((k) => `<button tabindex="-1" data-key="${k}">${k.toUpperCase()}</button>`).join(''));
+  keypad.setAttribute('aria-hidden', 'true');
+  stage.append(hint, forceBox, toast, keypad);
   wrap.append(stage, panel);
   root.appendChild(wrap);
   renderInfo(info);
@@ -166,10 +171,14 @@ export async function mount(root, info) {
         fetchBytes(new URL('robot/meshes/' + f, ASSETS), (n) => bump(n)).then((b) => [f, b])
       )
     );
+    const walkP = Promise.all([
+      fetch(new URL('walk/walk.json', ASSETS)).then((r) => r.json()),
+      fetch(new URL('walk/walk.bin', ASSETS)).then((r) => r.arrayBuffer()),
+    ]);
     const motionsP = Promise.all(
       motionIndex.map((m) => fetch(new URL(`motions/${m.id}.json`, ASSETS)).then((r) => r.json()).then((c) => [m.id, c]))
     );
-    const [mujoco, ortMod, policyBytes, meshes, motionList] = await Promise.all([mujocoP, ortP, policyP, meshP, motionsP]);
+    const [mujoco, ortMod, policyBytes, meshes, motionList, walkLib] = await Promise.all([mujocoP, ortP, policyP, meshP, motionsP, walkP]);
     if (disposed) return;
     bump(sizes.policy - policyBytesSeen);
     const ort = ortMod.default || ortMod;
@@ -188,6 +197,7 @@ export async function mount(root, info) {
     const session = await ort.InferenceSession.create(policyBytes, { executionProviders: ['wasm'] });
     cleanups.push(() => session.release());
     const ctrl = new Controller({ mujoco, model, data, config, session, ort });
+    const walker = new WalkMatcher(parseLibrary(...walkLib));
 
     // ── scene ──
     const view = buildScene(model, data, canvas, stage);
@@ -197,7 +207,7 @@ export async function mount(root, info) {
     const [Klo, Khi] = config.stiffness_range;
     const slider = panel.querySelector('input[type=range]');
     const kLabel = panel.querySelector('.cg-value');
-    let motionId = 'stand';
+    let motionId = WALK;
     let paused = false;
     let fallTime = 0;
     let push = null;
@@ -214,16 +224,26 @@ export async function mount(root, info) {
     slider.addEventListener('input', () => setStiffness(slider.value / 1000));
 
     const motionBox = panel.querySelector('.cg-motions');
-    for (const m of motionIndex) {
+    for (const m of [{ id: WALK, label: 'Keyboard control' }, ...motionIndex]) {
       const b = el('button', 'cg-btn', m.label);
       b.dataset.motion = m.id;
+      if (m.id === WALK) b.classList.add('wide');
       b.addEventListener('click', () => selectMotion(m.id));
       motionBox.appendChild(b);
     }
+    const HINT_DRAG = hint.innerHTML;
+    const HINT_WALK = '<b>W A S D</b> to walk · <b>Q E</b> to turn<span class="more"> · drag the robot to push it</span>';
     function selectMotion(id) {
       motionId = id;
       motionBox.querySelectorAll('.cg-btn').forEach((b) => b.classList.toggle('active', b.dataset.motion === id));
-      ctrl.setClip(motions[id]);
+      const walk = id === WALK;
+      if (walk) ctrl.setWalk(walker);
+      else ctrl.setClip(motions[id]);
+      keypad.classList.toggle('on', walk);
+      if (walk !== (hint.innerHTML === HINT_WALK)) {
+        hint.innerHTML = walk ? HINT_WALK : HINT_DRAG;
+        hint.style.opacity = '1';
+      }
     }
 
     function resetAll() {
@@ -348,15 +368,56 @@ export async function mount(root, info) {
     canvas.addEventListener('pointerup', onUp);
     canvas.addEventListener('pointercancel', onUp);
 
+    // ── keyboard walk: W A S D move, Q E turn (keys or the on-screen keypad) ──
+    const held = new Set();
+    const showKeys = () => keypad.querySelectorAll('button').forEach((b) => b.classList.toggle('down', held.has(b.dataset.key)));
+    function press(k, down) {
+      if (down && motionId !== WALK) selectMotion(WALK);
+      if (down) held.add(k);
+      else held.delete(k);
+      showKeys();
+    }
+    const releaseAll = () => {
+      held.clear();
+      showKeys();
+    };
     const onKey = (e) => {
-      if (e.target instanceof HTMLInputElement) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.code === 'Space' && document.activeElement === canvas) {
         setPaused(!paused);
         e.preventDefault();
+        return;
       }
+      const k = WALK_KEYS[e.code];
+      if (!k || e.ctrlKey || e.metaKey || e.altKey || !visible) return;
+      if (!e.repeat) press(k, true);
+      e.preventDefault();
     };
+    const onKeyUp = (e) => {
+      const k = WALK_KEYS[e.code];
+      if (k) press(k, false);
+    };
+    keypad.addEventListener('pointerdown', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      b.setPointerCapture(e.pointerId);
+      press(b.dataset.key, true);
+      e.preventDefault();
+    });
+    const keypadUp = (e) => {
+      const b = e.target.closest('button');
+      if (b) press(b.dataset.key, false);
+    };
+    keypad.addEventListener('pointerup', keypadUp);
+    keypad.addEventListener('pointercancel', keypadUp);
     window.addEventListener('keydown', onKey);
-    cleanups.push(() => window.removeEventListener('keydown', onKey));
+    window.addEventListener('keyup', onKeyUp);
+    window.addEventListener('blur', releaseAll);
+    cleanups.push(
+      () => window.removeEventListener('keydown', onKey),
+      () => window.removeEventListener('keyup', onKeyUp),
+      () => window.removeEventListener('blur', releaseAll)
+    );
 
     // ── run only while visible ──
     let visible = true;
@@ -385,6 +446,7 @@ export async function mount(root, info) {
             acc = Math.min(acc, controlDt);
             break;
           }
+          if (motionId === WALK) walker.setInput(...commandFromKeys(held));
           const t0 = performance.now();
           await ctrl.act();
           const t1 = performance.now();
@@ -636,6 +698,8 @@ function buildScene(model, data, canvas, stage) {
       follow.add(delta);
       controls.target.add(delta);
       camera.position.add(delta);
+      // the floor follows in whole texture tiles (2 m), so the robot never walks off it
+      floor.position.set(2 * Math.round(follow.x / 2), 2 * Math.round(follow.y / 2), 0);
       sun.position.set(follow.x + 2.5, follow.y - 1.5, 5);
       sun.target.position.set(follow.x, follow.y, 0);
       controls.update();
