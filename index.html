@@ -449,6 +449,7 @@
       <a href="#about"        data-section="about">About</a>
       <a href="#news"         data-section="news">News</a>
       <a href="#publications" data-section="publications">Publications</a>
+      <a href="#software"     data-section="software">Software</a>
       <a href="playground/">Playground</a>
       <!-- <a href="#teaching"     data-section="teaching">Teaching</a> -->
       <!-- <a href="assets/cv.pdf">CV</a> -->
@@ -486,6 +487,10 @@
     <div class="section-title">News</div>
     <div class="news-list">
 
+      <div class="news-row">
+        <span class="date">Nov 2026</span>
+        <span class="text"><a href="https://embodied-ai-nexus.github.io/Eden/">Eden</a>, an open-source robot-learning framework built on <a href="https://github.com/Genesis-Embodied-AI/Genesis">Genesis</a>, has been released.</span>
+      </div>
       <div class="news-row">
         <span class="date">Nov 2026</span>
         <span class="text">One co-authored paper has been accepted to <a href="https://www.corl.org/">CoRL 2026</a>.</span>
@@ -631,6 +636,40 @@
     </div>
   </section>
 
+  <!-- ════ SOFTWARE ════ -->
+  <section id="software">
+    <div class="section-title">Software</div>
+    <div class="pub-list">
+
+      <div class="pub">
+        <div class="pub-thumb">
+          <img src="assets/pub/eden_teaser.webp" alt="">
+        </div>
+        <div class="pub-meta">
+          <div class="pub-title">
+            <a href="https://embodied-ai-nexus.github.io/Eden/">Eden: One Task Definition from Simulation to Real Robots</a>
+            <span class="pub-subtitle">A robot-learning framework built on Genesis: write a task as one typed config, train it across thousands of GPU-parallel environments, then run the same policy on a real robot.</span>
+          </div>
+          <div class="pub-authors">Eden Authors · contributor</div>
+          <div class="pub-venue">Open source (Apache-2.0), 2026</div>
+          <div class="pub-links">
+            <a href="https://github.com/embodied-ai-nexus/Eden">code</a>
+            <a href="https://embodied-ai-nexus.github.io/Eden/">docs</a>
+            <button class="bibtex-btn"
+              data-bibtex="@misc{Eden,
+                author={Eden Authors},
+                title={Eden: One Task Definition from Simulation to Real Robots},
+                month={November},
+                year={2026},
+                url={https://github.com/embodied-ai-nexus/Eden}
+            }">BibTeX</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ════ TEACHING ════ -->
   <!-- ════ ROBOT PLAYGROUND ════ -->
   <section id="playground">
@@ -733,7 +772,7 @@
 
   /* ════ Active nav on scroll ════ */
   (function() {
-    const sections = ['about', 'news', 'publications', 'teaching'];
+    const sections = ['about', 'news', 'publications', 'software', 'teaching'];
     const navLinks  = {};
     sections.forEach(function(id) {
       var el = document.querySelector('[data-section="' + id + '"]');
@@ -753,21 +792,32 @@
     }
     if (navLinks['about']) navLinks['about'].classList.add('active');
 
-    var observer = new IntersectionObserver(function(entries) {
-      var best = null, bestRatio = 0;
-      entries.forEach(function(e) {
-        if (e.intersectionRatio > bestRatio) {
-          bestRatio = e.intersectionRatio;
-          best = e.target.id;
-        }
+    // The active section is the last one whose top has passed a line 15% down the viewport; at the bottom of the
+    // page, the last section (short sections near the end never reach that line).
+    var ticking = false;
+    function update() {
+      ticking = false;
+      if (!targets.length) return;
+      var doc = document.documentElement;
+      if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+        setActive(targets[targets.length - 1].id);
+        return;
+      }
+      var line = window.innerHeight * 0.15;
+      var current = targets[0].id;
+      targets.forEach(function(t) {
+        if (t.getBoundingClientRect().top <= line) current = t.id;
       });
-      if (best) setActive(best);
-    }, {
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
-    });
-
-    targets.forEach(function(t) { observer.observe(t); });
+      setActive(current);
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 </body>
