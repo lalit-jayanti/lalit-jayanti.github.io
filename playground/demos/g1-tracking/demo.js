@@ -225,7 +225,7 @@ export async function mount(root, info) {
       motionBox.appendChild(b);
     }
     const HINT_DRAG = hint.innerHTML;
-    const HINT_WALK = '<b>W S</b> to walk · <b>W+Q</b> / <b>W+E</b> to steer · <b>A D</b> to side-step<span class="more"> · drag the robot to push it</span>';
+    const HINT_WALK = '<b>W S</b> to walk · <b>A D</b> to steer · <b>Q E</b> to side-step<span class="more"> · drag the robot to push it</span>';
     function selectMotion(id) {
       motionId = id;
       motionBox.querySelectorAll('.cg-btn').forEach((b) => b.classList.toggle('active', b.dataset.motion === id));

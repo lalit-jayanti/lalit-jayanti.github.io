@@ -72,7 +72,7 @@ export async function mount(root, info) {
   const stage = el('div', 'cg-stage');
   const canvas = el('canvas');
   canvas.tabIndex = 0;
-  canvas.setAttribute('aria-label', 'Robot simulation. Use W and S to walk, W+Q or W+E to steer, A and D to side-step; drag to orbit the camera.');
+  canvas.setAttribute('aria-label', 'Robot simulation. Use W and S to walk, A and D to steer, Q and E to side-step; drag to orbit the camera.');
   stage.appendChild(canvas);
 
   const loading = el('div', 'cg-loading', '<div class="track"><div class="fill"></div></div><div class="msg">Loading…</div>');
@@ -102,7 +102,7 @@ export async function mount(root, info) {
       <button class="cg-btn" data-act="pause">${ICONS.pause}<span>Pause</span></button>
       <button class="cg-btn" data-act="reset">${ICONS.reset}<span>Reset</span></button>
     </div>`;
-  const hint = el('div', 'cg-hint', '<b>W S</b> to walk · <b>W+Q</b> / <b>W+E</b> to steer · <b>A D</b> to side-step<span class="more"> · <b>Shift</b> to hurry</span>');
+  const hint = el('div', 'cg-hint', '<b>W S</b> to walk · <b>A D</b> to steer · <b>Q E</b> to side-step<span class="more"> · <b>Shift</b> to hurry</span>');
   const where = el('div', 'pl-where', '');
   const score = el('div', 'pl-score', '<svg viewBox="0 0 16 16"><path d="M8 1.2l2 4.3 4.7.6-3.4 3.2.9 4.7L8 11.7 3.8 14l.9-4.7L1.3 6.1 6 5.5z"/></svg><span>0</span>');
   const toast = el('div', 'cg-toast');
@@ -309,7 +309,7 @@ export async function mount(root, info) {
     function command() {
       const k = (c) => (held.has(c) ? 1 : 0);
       const vx = (shift ? SPEED.fast : SPEED.fwd) * k('w') - SPEED.back * k('s');
-      return [vx, SPEED.side * (k('a') - k('d')), SPEED.turn * (k('q') - k('e'))];
+      return [vx, SPEED.side * (k('q') - k('e')), SPEED.turn * (k('a') - k('d'))];
     }
 
     let visible = true;
