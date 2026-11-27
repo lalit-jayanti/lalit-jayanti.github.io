@@ -1,15 +1,13 @@
-// Simulation worker: MuJoCo + the policy, stepped in real time off the render thread. Streams poses to the page
-// and takes perturbations (drag, knock, open hand, move bulb) from it.
 import { LightbulbController } from './controller.js';
 
 const MUJOCO_URL = 'https://cdn.jsdelivr.net/npm/@mujoco/mujoco@4.0.0/mujoco.js';
-const MUJOCO_BYTES = 11.2e6; // mujoco.wasm, for the progress bar
+const MUJOCO_BYTES = 11.2e6;
 const ORT_URL = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.bundle.min.mjs';
 const ASSETS = new URL('./assets/', import.meta.url);
 
 const CONTROL_DT = 0.04;
-const KNOCK_SPEED = 0.7; // m/s given to the bulb
-const KNOCK_TIME = 0.04; // s over which it is applied
+const KNOCK_SPEED = 0.7;
+const KNOCK_TIME = 0.04;
 
 let mujoco;
 let model;
@@ -17,11 +15,11 @@ let data;
 let ctl;
 let starts = [];
 let paused = false;
-let ready = false; // the page has built its scene: until then the round waits at its start
+let ready = false;
 let drag = null;
 let knock = null;
 let simTime = 0;
-let epoch = 0; // bumped on every jump in state (new start, moved bulb): the page does not interpolate across it
+let epoch = 0;
 let stepMs = 0;
 
 const post = (msg, transfer) => self.postMessage(msg, transfer || []);
@@ -93,7 +91,6 @@ async function init() {
   const session = await ort.InferenceSession.create(policyBytes, { executionProviders: ['wasm'] });
   ctl = new LightbulbController({ mujoco, model, data, cfg, gains, session, ort });
   ctl.applyExternal = applyExternal;
-  // Stream poses every 5 physics steps (10 ms of sim time).
   ctl.onSubstep = (k) => {
     if ((k + 1) % 5 === 0) {
       simTime += 0.01;
@@ -104,7 +101,6 @@ async function init() {
   post({ type: 'scene', geoms: sc.geoms, bodies: sc.bodies, bulbBody: sc.bulbBody, globeZ: sc.globeZ, starts: starts.map((s) => s.kind) }, sc.transfer);
 }
 
-// Everything the page needs to draw: render geoms (visual meshes + primitives) and body names.
 function describeScene() {
   const geoms = [];
   const transfer = [];
@@ -114,8 +110,6 @@ function describeScene() {
     const visual = model.geom_contype[g] === 0 && model.geom_conaffinity[g] === 0;
     const body = model.geom_bodyid[g];
     const bodyName = name(mujoco.mjtObj.mjOBJ_BODY.value, body);
-    // Visual meshes are drawn; collision geoms only for the lamp parts and the table (their visual meshes stand in
-    // where they exist), never for the robot.
     if (type === MESH && !visual) continue;
     if (!visual && !(bodyName === 'table' || name(mujoco.mjtObj.mjOBJ_GEOM.value, g) === 'floor')) continue;
     const mid = model.geom_matid[g];
@@ -195,14 +189,12 @@ function startEpisode(i) {
   sendFrame();
 }
 
-// Put the bulb down somewhere else on the table, lying on its side, at rest.
 function moveBulb() {
   const d = ctl.vw();
   const bq = ctl.bq;
   const yaw = Math.random() * 2 * Math.PI;
   const x = 0.42 + Math.random() * 0.2;
   const y = -0.02 + Math.random() * 0.2;
-  // lying on its side: a quarter turn about x, then a random yaw about z
   const qx = [Math.SQRT1_2, Math.SQRT1_2, 0, 0];
   const qz = [Math.cos(yaw / 2), 0, 0, Math.sin(yaw / 2)];
   const q = [
@@ -228,7 +220,6 @@ function openHand() {
   ctl.target.set(ctl.handTarget, 7);
 }
 
-// Body poses (and the task state) for the page, which interpolates between them.
 function sendFrame() {
   const th = ctl.thread;
   post({
@@ -243,7 +234,6 @@ function sendFrame() {
   });
 }
 
-// Real-time loop: one control step per 40 ms of wall time; slower machines run slower than real time.
 let wall0 = 0;
 let simAt = 0;
 async function loop() {
@@ -271,7 +261,6 @@ async function loop() {
     const ahead = simAt - (performance.now() - wall0);
     if (ahead > 0) await new Promise((r) => setTimeout(r, ahead));
     else if (ahead < -250) {
-      // too far behind: drop the backlog instead of fast-forwarding
       wall0 = performance.now();
       simAt = 0;
     }

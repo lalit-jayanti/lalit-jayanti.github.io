@@ -17,7 +17,6 @@
 .cg-stage canvas.grab { cursor: grab; }
 .cg-stage canvas.grabbing { cursor: grabbing; }
 
-/* ── control panel ── */
 .cg-panel {
   position: absolute; top: 14px; left: 14px; width: 252px;
   background: var(--panel-bg);
@@ -50,7 +49,6 @@
 .cg-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .cg-actions .cg-btn { justify-content: center; font-size: 0.74rem; padding: 6px 4px; }
 
-/* ── stiffness slider ── */
 .cg-slider { position: relative; height: 18px; }
 .cg-slider input {
   -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent;
@@ -77,7 +75,6 @@
   font-family: var(--mono); font-size: 0.6rem; color: var(--gray-3);
 }
 
-/* ── overlays ── */
 .cg-hint {
   position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
   font-family: var(--mono); font-size: 0.66rem; color: var(--gray-2);
@@ -131,10 +128,9 @@
 .cg-loading .msg { font-family: var(--mono); font-size: 0.68rem; color: var(--gray-2); letter-spacing: 0.02em; }
 .cg-loading .err { max-width: 360px; text-align: center; font-size: 0.85rem; color: var(--gray-1); }
 
-/* ── description and references ── */
 .cg-info { margin-top: 2.25rem; }
 .cg-info h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 0.5rem; }
-.cg-info p { font-size: 0.9375rem; font-weight: 300; color: var(--gray-1); line-height: 1.7; }
+.cg-info p { font-size: 0.9375rem; font-weight: 400; color: var(--gray-1); line-height: 1.7; }
 .cg-info p + p { margin-top: 0.6rem; }
 .cg-info p strong { font-weight: 500; color: var(--black); }
 .cg-info a {
@@ -151,7 +147,7 @@
 .cg-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .cg-refs { list-style: none; display: grid; gap: 0.9rem; }
 .cg-ref-title { font-size: 0.9rem; font-weight: 500; line-height: 1.4; }
-.cg-ref-authors { font-size: 0.8rem; color: var(--gray-2); font-weight: 300; }
+.cg-ref-authors { font-size: 0.8rem; color: var(--gray-2); font-weight: 400; }
 .cg-ref-links { margin-top: 0.15rem; font-family: var(--mono); font-size: 0.66rem; color: var(--gray-3); }
 .cg-ref-links a + a::before { content: '/'; margin: 0 0.45rem; color: var(--gray-4); }
 .cg-credits { font-size: 0.8rem !important; color: var(--gray-2) !important; }

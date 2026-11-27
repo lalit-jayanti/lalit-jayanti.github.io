@@ -1,9 +1,3 @@
-// Arm + dexterous hand controller for the light-bulb task: builds the policy inputs from the simulated scene,
-// runs the ONNX policy at 25 Hz, maps its output to joint targets (differential IK for the arm, an integrated
-// target for the hand) and drives the joints with a PD law at every physics step. The thread between the bulb
-// and the socket is a force model applied to the bulb at every physics step.
-// Runs unchanged in the browser and in Node (mujoco and onnxruntime are passed in).
-
 const OUT_ABOVE = 0.005;
 const OUT_RADIAL_SLACK = 0.004;
 const RELATCH_SLACK = 0.0005;
@@ -23,7 +17,6 @@ function quatToR(q) {
   ];
 }
 
-// Solve A x = b for a small dense SPD matrix (Gaussian elimination with partial pivoting); A is n*n row-major.
 function solve(A, b, n) {
   const M = A.slice();
   const x = b.slice();
@@ -83,7 +76,6 @@ class Thread {
     const along = dd[0] * a[0] + dd[1] * a[1] + dd[2] * a[2];
     const rVec = [dd[0] - along * a[0], dd[1] - along * a[1], dd[2] - along * a[2]];
     const tilt = Math.acos(clamp(R[2] * a[0] + R[5] * a[1] + R[8] * a[2], -1, 1));
-    // R_rel = Rs^T R; psi = atan2(R_rel[1,0], R_rel[0,0])
     const S = this.Rs;
     const r10 = S[1] * R[0] + S[4] * R[3] + S[7] * R[6];
     const r00 = S[0] * R[0] + S[3] * R[3] + S[6] * R[6];
@@ -122,7 +114,6 @@ class Thread {
     this.store(tip, depth, rVec, tilt, -(psi - this.psi0));
   }
 
-  // Force (world), torque (world) and the point (stem tip) to apply this physics step.
   wrench() {
     const p = this.p;
     const c = this.c;
@@ -179,7 +170,6 @@ class Thread {
     return { force: [f * a[0], f * a[1], f * a[2]], torque: [torqueAx * a[0], torqueAx * a[1], torqueAx * a[2]], tip };
   }
 
-  // Screw-in progress in [0, 1].
   get progress() {
     return clamp(this.theta / this.thetaSeat, 0, 1);
   }
@@ -223,9 +213,7 @@ export class LightbulbController {
     const nv = model.nv;
     this.jacp = new mujoco.DoubleBuffer(3 * nv);
     this.jacr = new mujoco.DoubleBuffer(3 * nv);
-    // Extra wrenches the page applies each physics step (dragging, pushes): fn(data) writing xfrc_applied.
     this.applyExternal = null;
-    // Called after every physics step with its index in the control period (the page streams poses from it).
     this.onSubstep = null;
     this._v = null;
     mujoco.mj_forward(model, data);
@@ -237,8 +225,6 @@ export class LightbulbController {
     this.jacr.delete();
   }
 
-  // Typed-array views into the simulation state, fetched once and reused until the next step (each property
-  // access on MjData builds a new view, which is slow in a per-joint loop).
   vw() {
     if (!this._v) {
       const d = this.data;
@@ -250,7 +236,6 @@ export class LightbulbController {
     return this._v;
   }
 
-  // Call after changing the state outside step()/setState() (e.g. mj_forward from the page).
   invalidate() {
     this._v = null;
   }
@@ -268,7 +253,6 @@ export class LightbulbController {
     return [v, [0, 1, 2].map((i) => R[3 * i] * w[0] + R[3 * i + 1] * w[1] + R[3 * i + 2] * w[2])];
   }
 
-  // Place everything from a start state.
   setState(s) {
     const d = this.data;
     const m = this.model;
@@ -311,7 +295,7 @@ export class LightbulbController {
     for (let i = 0; i < 20; i++) o[k++] = this.handTarget[i];
     const wb = this.wristBody;
     for (let i = 0; i < 3; i++) o[k++] = d.xpos[3 * wb + i] - seat[i];
-    const Rw = d.xmat.subarray(9 * wb, 9 * wb + 6); // first two rows of R
+    const Rw = d.xmat.subarray(9 * wb, 9 * wb + 6);
     for (let i = 0; i < 6; i++) o[k++] = Rw[i];
     for (let i = 0; i < 3; i++) o[k++] = th.tip[i] - seat[i];
     const bb = this.bulbBody;
@@ -340,7 +324,7 @@ export class LightbulbController {
     this.mj.mj_jacBody(m, this.data, this.jacp, this.jacr, this.eeBody);
     const jp = this.view(this.jacp);
     const jr = this.view(this.jacr);
-    const J = new Float64Array(42); // 6 x 7
+    const J = new Float64Array(42);
     for (let r = 0; r < 3; r++) {
       for (let c = 0; c < 7; c++) {
         J[r * 7 + c] = jp[r * nv + this.av[c]];
