@@ -8,8 +8,8 @@ const WEIGHTS = { traj_pos: 2.5, traj_dir: 1.5, foot_pos: 0.25, foot_vel: 0.35, 
 
 export function commandFromKeys(keys) {
   const fwd = (keys.has('w') ? 1 : 0) - (keys.has('s') ? 1 : 0);
-  const side = (keys.has('a') ? 1 : 0) - (keys.has('d') ? 1 : 0);
-  const turn = (keys.has('q') ? 1 : 0) - (keys.has('e') ? 1 : 0);
+  const side = (keys.has('q') ? 1 : 0) - (keys.has('e') ? 1 : 0);
+  const turn = (keys.has('a') ? 1 : 0) - (keys.has('d') ? 1 : 0);
   if (fwd > 0 && turn) return [1.45, 0, 0.85 * turn];
   return [fwd > 0 ? 1.1 : fwd < 0 ? -0.8 : 0, 1.45 * side, 1.1 * turn];
 }
