@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪸</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="playground.css">
   <script type="importmap">
   {
@@ -41,10 +41,12 @@
   <div class="demo-picker" role="tablist" aria-label="Demos">
     <button class="demo-chip active" role="tab" aria-selected="true" data-demo="lightbulb">
       <span class="chip-title">Dexterous light-bulb assembly</span>
-      <span class="chip-sub">Franka + five-finger hand · MuJoCo</span>
     </button>
     <button class="demo-chip" role="tab" aria-selected="false" data-demo="cgmt">
       <span class="chip-title">Compliant General Motion Tracker</span>
+    </button>
+    <button class="demo-chip" role="tab" aria-selected="false" data-demo="ploco">
+      <span class="chip-title">Perceptive Locomotion</span>
     </button>
   </div>
 </div>
@@ -65,6 +67,7 @@
   const DEMOS = {
     'lightbulb': () => import('./demos/lightbulb/demo.js'),
     'cgmt': () => import('./demos/g1-tracking/demo.js'),
+    'ploco': () => import('./demos/perceptive-locomotion/demo.js'),
   };
   const root = document.getElementById('demo-root');
   const info = document.getElementById('demo-info');

@@ -1,7 +1,3 @@
-// Whole-body tracking controller for the Unitree G1: builds the policy inputs from the simulated
-// robot, runs the ONNX policy at 50 Hz and drives the joints with a PD law at every physics step.
-// Runs unchanged in the browser and in Node (mujoco and onnxruntime are passed in).
-
 const J = 29;
 const OBS_DIM = 3 * J + 6;
 
@@ -14,7 +10,6 @@ function quatMul(a, b) {
   ];
 }
 
-// Row-major 3x3 rotation matrix of a wxyz quaternion.
 function quatToR(q) {
   const [w, x, y, z] = q;
   return [
@@ -54,7 +49,6 @@ export class Controller {
     };
     this.gyroAdr = sensor('imu_gyro');
     this.quatAdr = sensor('imu_quat');
-    // Joint armature including the PD damping term kd * dt, set after compilation.
     for (let j = 0; j < J; j++) model.dof_armature[this.vIdx[j]] = config.armature[j];
     const [lo, hi] = config.stiffness_range;
     this.logCenter = 0.5 * (Math.log(lo) + Math.log(hi));
@@ -66,11 +60,10 @@ export class Controller {
     this.target = Float64Array.from(this.q0);
     this.stiffness = 150;
     this.clip = null;
-    this.walk = null; // keyboard-walk motion matcher, used instead of a clip when set
+    this.walk = null;
     this.frame = 0;
     this.yaw = 0;
     this.fresh = true;
-    // Extra wrenches on bodies (6 per body, world frame, at the body CoM), set by the UI each physics step.
     this.applyExternal = null;
   }
 
@@ -85,7 +78,6 @@ export class Controller {
     this.restart();
   }
 
-  // Start the clip from frame 0 (or the walk from standing), turned to face the robot's current heading.
   restart() {
     this.frame = 0;
     this.prevAction.fill(0);
@@ -94,7 +86,6 @@ export class Controller {
     else this.yaw = yawOf(this.imuQuat()) - yawOf(this.clip.root_quat[0]);
   }
 
-  // Place the robot standing at the origin in its default pose, at rest.
   resetRobot(startQpos) {
     const d = this.data;
     d.qpos.fill(0);
@@ -111,7 +102,6 @@ export class Controller {
     this.target = Float64Array.from(this.q0);
   }
 
-  // Pelvis IMU orientation (wxyz), as the robot's IMU reports it.
   imuQuat() {
     const s = this.data.sensordata;
     const a = this.quatAdr;
@@ -131,11 +121,9 @@ export class Controller {
       o[j] = d.qpos[this.qIdx[j]] - this.q0[j];
       o[J + j] = d.qvel[this.vIdx[j]];
     }
-    // Pelvis gyro: angular velocity in the body frame.
     o[2 * J] = d.sensordata[this.gyroAdr];
     o[2 * J + 1] = d.sensordata[this.gyroAdr + 1];
     o[2 * J + 2] = d.sensordata[this.gyroAdr + 2];
-    // Gravity direction in the body frame: R^T (0, 0, -1).
     o[2 * J + 3] = -R[6];
     o[2 * J + 4] = -R[7];
     o[2 * J + 5] = -R[8];
@@ -172,7 +160,6 @@ export class Controller {
       g[base + j] = dp[j];
       g[base + J + j] = dv[j];
     }
-    // rel = Rr^T Rf; first two columns, row-major: [r00, r01, r10, r11, r20, r21]
     for (let r = 0; r < 3; r++) {
       for (let col = 0; col < 2; col++) {
         g[base + 2 * J + 2 * r + col] =
@@ -210,7 +197,6 @@ export class Controller {
     return this.action;
   }
 
-  // Advance one control period: PD torques recomputed at every physics step.
   physics() {
     const d = this.data;
     const m = this.model;
@@ -244,7 +230,6 @@ export class Controller {
     this.advance();
   }
 
-  // Pelvis height and tilt from vertical (degrees), for fall detection.
   posture() {
     const R = quatToR(this.rootQuat());
     return { height: this.data.qpos[2], tilt: (Math.acos(Math.max(-1, Math.min(1, R[8]))) * 180) / Math.PI };

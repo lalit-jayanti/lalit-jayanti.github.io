@@ -1,19 +1,11 @@
-// Keyboard walking by motion matching over a small clip library.
-// Every few frames (or when the input changes) the matcher compares the current pose and the trajectory the
-// keys ask for against every frame of the library, and jumps to the best one. Jumps are smoothed by a decaying
-// spring offset (inertialization) on the joints and the root orientation, so the reference stays continuous.
-// The tracker reads the reference through sample(k): the pose k frames ahead, in world heading.
-
 const J = 29;
-const SEARCH_EVERY = 10; // frames between periodic searches
-const HALFLIFE = 0.12; // s, inertialization spring
-const TRAJ_TAU = 0.12; // s, how fast the predicted trajectory reaches the commanded velocity
-const MIN_JUMP = 8; // frames, ignore matches this close ahead in the same clip
-const KEEP_BIAS = 0.15; // cost margin that favours staying on the current clip
+const SEARCH_EVERY = 10;
+const HALFLIFE = 0.12;
+const TRAJ_TAU = 0.12;
+const MIN_JUMP = 8;
+const KEEP_BIAS = 0.15;
 const WEIGHTS = { traj_pos: 2.5, traj_dir: 1.5, foot_pos: 0.25, foot_vel: 0.35, root_vel: 0.5 };
 
-// Commanded velocity [forward m/s, left m/s, turn rad/s] for a set of held keys (w a s d q e), close to the
-// library's own speeds so that each key lands on its clips. Forward + turn asks for the walking arcs.
 export function commandFromKeys(keys) {
   const fwd = (keys.has('w') ? 1 : 0) - (keys.has('s') ? 1 : 0);
   const side = (keys.has('a') ? 1 : 0) - (keys.has('d') ? 1 : 0);
@@ -51,7 +43,6 @@ function quatExp(r) {
   return [Math.cos(th / 2), r[0] * s, r[1] * s, r[2] * s];
 }
 
-// Library: walk.json (clip table, feature normalisation) + walk.bin (int16 poses, then int16 features).
 export function parseLibrary(meta, buffer) {
   const P = meta.pose_dim;
   const F = meta.feat_dim;
@@ -72,7 +63,6 @@ export function parseLibrary(meta, buffer) {
       for (let j = 0; j < J; j++) dof[J * i + j] = raw[r + 4 + j] / 10000;
       head[i] = raw[r + 4 + J] / 10000;
     }
-    // Joint velocities by central differences.
     const fps = meta.fps;
     const dofv = new Float32Array(J * n);
     for (let i = 0; i < n; i++) {
@@ -108,7 +98,6 @@ export class WalkMatcher {
     this.reset(0);
   }
 
-  // Start standing, facing world heading `yaw`.
   reset(yaw) {
     this.c = this.standClip;
     this.f = 0;
@@ -117,7 +106,7 @@ export class WalkMatcher {
     this.dofOffV.fill(0);
     this.rotOff = [0, 0, 0];
     this.rotOffV = [0, 0, 0];
-    this.t = 1e3; // time since the last jump (s): offsets fully decayed
+    this.t = 1e3;
     this.sinceSearch = 0;
     this.dirty = true;
   }
@@ -132,7 +121,6 @@ export class WalkMatcher {
     }
   }
 
-  // Decaying spring offset at time t after a jump: value and rate.
   spring(x0, v0, t) {
     const y = this.y;
     const e = Math.exp(-y * t);
@@ -140,7 +128,6 @@ export class WalkMatcher {
     return [(x0 + j * t) * e, (v0 - y * j * t) * e];
   }
 
-  // Reference k frames ahead: world root quaternion (wxyz), joint angles and velocities.
   sample(k, out = this.out) {
     const c = this.lib.clips[this.c];
     const g = Math.min(c.frames - 1, this.f + k);
@@ -157,7 +144,6 @@ export class WalkMatcher {
     return out;
   }
 
-  // World heading of the character now.
   heading() {
     return this.lib.clips[this.c].head[this.f] + this.yawOff;
   }
@@ -169,7 +155,6 @@ export class WalkMatcher {
     if (this.dirty || this.sinceSearch >= SEARCH_EVERY) this.search();
   }
 
-  // Query: the current frame's pose features + the trajectory predicted from the commanded velocity.
   buildQuery() {
     const { lib, query: q } = this;
     const { feat_mean: mu, feat_std: sd, groups, traj_frames: tf } = lib.meta;
@@ -177,7 +162,6 @@ export class WalkMatcher {
     const c = lib.clips[this.c];
     const row = (c.featStart + Math.min(this.f, c.valid - 1)) * F;
     for (let i = 0; i < F; i++) q[i] = lib.feat[row + i];
-    // Current velocity and turn rate of the reference, from its own features.
     const rv = groups.root_vel[0];
     let vx = q[rv] * sd[rv] + mu[rv];
     let vy = q[rv + 1] * sd[rv + 1] + mu[rv + 1];
@@ -250,7 +234,6 @@ export class WalkMatcher {
     this.jump(bc, bf);
   }
 
-  // Switch to (clip, frame), keeping the reference continuous through spring offsets.
   jump(ci, fi) {
     const before0 = this.sample(0, { quat: null, dof: new Float32Array(J), dofv: new Float32Array(J) });
     const before1 = this.sample(1, { quat: null, dof: new Float32Array(J), dofv: new Float32Array(J) });

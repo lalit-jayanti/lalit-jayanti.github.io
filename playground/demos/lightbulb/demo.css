@@ -1,4 +1,3 @@
-/* Light-bulb demo additions on top of the shared demo styles (../common.css). */
 .lb .cg-panel { width: 268px; }
 .lb-starts { grid-template-columns: 1fr 1fr; }
 .lb-perturb { display: grid; gap: 6px; }

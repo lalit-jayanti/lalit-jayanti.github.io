@@ -1,13 +1,11 @@
-// Interactive demo: a Franka arm with a five-finger hand screws a light bulb into its socket while you get in its way.
-// The physics and the policy run in a worker (sim_worker.js); this module draws the scene and handles input.
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 const BASE = new URL('./', import.meta.url);
 const ASSETS = new URL('assets/', BASE);
-const RENDER_DELAY = 0.05; // s behind the newest pose, so there is always a pose on each side to interpolate
-const AUTO_NEXT_S = 4; // seated this long -> next round
+const RENDER_DELAY = 0.05;
+const AUTO_NEXT_S = 4;
 const DEBUG = new URLSearchParams(location.search).has('debug');
 
 const ICONS = {
@@ -91,7 +89,6 @@ export async function mount(root, info) {
         try {
           f();
         } catch (e) {
-          /* already released */
         }
       }
     },
@@ -100,17 +97,15 @@ export async function mount(root, info) {
   const worker = new Worker(new URL('sim_worker.js', BASE), { type: 'module' });
   cleanups.push(() => worker.terminate());
 
-  // ── scene state fed by the worker ──
   let view = null;
   let starts = [];
   let current = { kind: 'table', index: null };
-  const frames = []; // [{t, epoch, xpos, xquat, ...}]
+  const frames = [];
   let renderT = 0;
   let lastFrame = null;
   let seatedSince = null;
   let paused = false;
   let drag = null;
-  // Rounds that stop making progress (it happens: the last few degrees of the thread) move on by themselves.
   let progressMark = { best: 0, at: null };
   let stuckWarned = false;
   let lit = false;
@@ -174,7 +169,6 @@ export async function mount(root, info) {
     loading.innerHTML = `<div class="err">The demo could not start in this browser.<br><small>${e.message || 'worker error'}</small></div>`;
   };
 
-  // start buttons
   const startBox = panel.querySelector('.lb-starts');
   for (const k of KINDS) {
     const b = el('button', 'cg-btn', k.label);
@@ -200,7 +194,6 @@ export async function mount(root, info) {
     });
   }
 
-  // pause the simulation while the stage is off screen or the tab is hidden
   let visible = true;
   const io = new IntersectionObserver(([en]) => {
     visible = en.isIntersecting;
@@ -213,7 +206,6 @@ export async function mount(root, info) {
   document.addEventListener('visibilitychange', onVis);
   cleanups.push(() => io.disconnect(), () => document.removeEventListener('visibilitychange', onVis));
 
-  // ── input: drag a body with a spring ──
   function setupInput() {
     const raycaster = new THREE.Raycaster();
     const ndc = new THREE.Vector2();
@@ -267,14 +259,12 @@ export async function mount(root, info) {
       try {
         canvas.releasePointerCapture(ev.pointerId);
       } catch (err) {
-        /* not captured */
       }
     };
     canvas.addEventListener('pointerup', end);
     canvas.addEventListener('pointercancel', end);
   }
 
-  // ── render loop ──
   let last = performance.now();
   let raf = 0;
   const phaseEl = status.querySelector('.lb-phase');
@@ -301,12 +291,9 @@ export async function mount(root, info) {
     const w = b.t > a.t ? Math.min(1, Math.max(0, (renderT - a.t) / (b.t - a.t))) : 1;
     view.setPoses(a, b, w);
     const th = newest.thread;
-    // Once seated, the light stays on while the bulb stays screwed home (the thread friction lets it settle back a
-    // few degrees after the last stroke).
     lit = th.seated || (lit && th.engaged && th.progress > 0.95);
     view.setLit(lit);
     view.setDrag(newest.drag);
-    // status
     let phase;
     if (lit) phase = 'Screwed in. Light on!';
     else if (th.engaged) phase = `Screwing in · ${Math.round(100 * th.progress)}%`;
@@ -317,7 +304,6 @@ export async function mount(root, info) {
     const F = newest.drag ? newest.drag.force : 0;
     forceBox.classList.toggle('on', !!newest.drag);
     forceBox.querySelector('span').textContent = `${F.toFixed(1)} N`;
-    // next round after a while seated
     if (lit && !paused) {
       if (seatedSince === null) seatedSince = newest.t;
       else if (newest.t - seatedSince > AUTO_NEXT_S) {
@@ -325,7 +311,6 @@ export async function mount(root, info) {
         start('table');
       }
     } else seatedSince = null;
-    // no progress for a while: suggest a nudge, then move on
     if (!lit && !paused && !drag) {
       const p = th.engaged ? th.progress : 0;
       if (progressMark.at === null || p > progressMark.best + 0.02 || newest.t < progressMark.at) progressMark = { best: Math.max(p, progressMark.best), at: newest.t };
@@ -343,7 +328,6 @@ export async function mount(root, info) {
   raf = requestAnimationFrame(frame);
   cleanups.unshift(() => cancelAnimationFrame(raf));
 
-  // the first round: a bulb on the table
   worker.postMessage({ type: 'init', kind: 'table' });
   return api;
 }
@@ -389,13 +373,11 @@ async function buildScene(sc, canvas, stage) {
   rim.position.set(-1, 1.5, 1.2);
   scene.add(rim);
 
-  // floor
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshStandardMaterial({ color: '#e9e9ee', roughness: 1 }));
   floor.position.z = -0.76;
   floor.receiveShadow = true;
   scene.add(floor);
 
-  // one group per body; geoms are its children at their pose in the body frame
   const groups = sc.bodies.map((n, b) => {
     const g = new THREE.Group();
     g.userData.body = b;
@@ -449,7 +431,6 @@ async function buildScene(sc, canvas, stage) {
     if (gm.bodyName !== 'table') pickables.push(mesh);
   }
 
-  // visual meshes for the hand and the lamp parts, in their body frames
   const manifest = await (await fetch(new URL('visual/manifest.json', ASSETS))).json();
   const loader = new STLLoader();
   const byName = new Map(sc.bodies.map((n, b) => [n, b]));
@@ -467,7 +448,6 @@ async function buildScene(sc, canvas, stage) {
     if (!isBase) pickables.push(m);
   }));
 
-  // the bulb's light, on when it is seated
   const bulbGroup = groups[sc.bulbBody];
   const glow = new THREE.PointLight('#ffcf6b', 0, 1.2, 1.6);
   glow.position.set(0, 0, sc.globeZ);
@@ -491,7 +471,6 @@ async function buildScene(sc, canvas, stage) {
   let litLevel = 0;
   let litTarget = 0;
 
-  // drag indicator
   const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
   const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: '#db2777', depthTest: false }));
   const dotA = new THREE.Mesh(new THREE.SphereGeometry(0.006, 12, 8), new THREE.MeshBasicMaterial({ color: '#db2777', depthTest: false }));
@@ -513,7 +492,6 @@ async function buildScene(sc, canvas, stage) {
   ro.observe(stage);
   resize();
 
-  // adaptive resolution
   let frameEma = 1 / 60;
   let sinceChange = 0;
   let lastT = performance.now();
@@ -584,8 +562,6 @@ async function buildScene(sc, canvas, stage) {
   };
 }
 
-// Smooth normals that keep hard edges: each corner averages the normals of the faces around its vertex that lie
-// within `creaseAngle` of its own face, weighted by the corner angle (stable on CAD meshes full of thin slivers).
 function creasedNormals(geometry, creaseAngle) {
   const src = geometry.index ? geometry.toNonIndexed() : geometry;
   const pos = src.getAttribute('position').array;

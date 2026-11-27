@@ -8,7 +8,7 @@
   --bg-subtle: #f7f7f7;
   --border: #e5e5e5;
   --sans: 'Roboto', sans-serif;
-  --mono: 'Roboto Mono', monospace;
+  --mono: var(--sans);
   --max-w: 780px;
   --stage-w: 1080px;
   --g1: #7c3aed;
@@ -32,7 +32,6 @@ body {
 .page { max-width: var(--max-w); margin: 0 auto; }
 .page:first-child { padding-top: 3rem; }
 
-/* ── header, same as the home page ── */
 header {
   display: flex; align-items: center; justify-content: space-between;
   padding-bottom: 2rem; margin-bottom: 2.25rem;
@@ -58,9 +57,8 @@ nav a {
 nav a:hover, nav a.active { background-size: 100% 2px; color: var(--black); }
 
 .intro h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.25rem; }
-.intro p { font-size: 0.9375rem; color: var(--gray-1); font-weight: 300; }
+.intro p { font-size: 0.9375rem; color: var(--gray-1); font-weight: 400; }
 
-/* ── demo picker ── */
 .demo-picker { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 1.25rem; }
 .demo-chip {
   display: flex; flex-direction: column; align-items: flex-start; gap: 0.05rem;
@@ -79,7 +77,6 @@ nav a:hover, nav a.active { background-size: 100% 2px; color: var(--black); }
 .chip-title { font-size: 0.875rem; font-weight: 500; color: var(--black); }
 .chip-sub { font-family: var(--mono); font-size: 0.65rem; color: var(--gray-2); letter-spacing: 0.02em; }
 
-/* ── stage ── */
 .stage-wrap { max-width: var(--stage-w); margin: 0 auto; }
 
 footer {

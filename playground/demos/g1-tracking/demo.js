@@ -1,4 +1,3 @@
-// Interactive demo: a simulated Unitree G1 tracks motion clips while you push it around.
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -10,11 +9,11 @@ const ORT_URL = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wa
 const BASE = new URL('./', import.meta.url);
 const ASSETS = new URL('assets/', BASE);
 
-const DRAG_GAIN = 900; // N per metre of drag distance
-const DRAG_DAMP = 40; // N per (m/s) at the grab point
-const DRAG_MAX = 260; // N
-const PUSH_FORCE = 180; // N
-const PUSH_TIME = 0.2; // s
+const DRAG_GAIN = 900;
+const DRAG_DAMP = 40;
+const DRAG_MAX = 260;
+const PUSH_FORCE = 180;
+const PUSH_TIME = 0.2;
 const VISUAL_GROUP = 2;
 const WALK = 'walk';
 const WALK_KEYS = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', KeyQ: 'q', KeyE: 'e' };
@@ -41,7 +40,6 @@ function loadCss(href) {
   document.head.appendChild(l);
 }
 
-// Fetch with byte-level progress reporting.
 async function fetchBytes(url, onBytes) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`);
@@ -122,7 +120,6 @@ export async function mount(root, info) {
         try {
           f();
         } catch (e) {
-          /* already released */
         }
       }
     },
@@ -137,7 +134,6 @@ export async function mount(root, info) {
   return api;
 
   async function start() {
-    // ── downloads ──
     const config = await (await fetch(new URL('config.json', ASSETS))).json();
     const motionIndex = await (await fetch(new URL('motions/index.json', ASSETS))).json();
     const xml = await (await fetch(new URL('robot/scene.xml', ASSETS))).text();
@@ -184,7 +180,6 @@ export async function mount(root, info) {
     const ort = ortMod.default || ortMod;
     const motions = Object.fromEntries(motionList);
 
-    // ── physics ──
     msg.textContent = 'Starting simulation…';
     const vfs = new mujoco.MjVFS();
     for (const [f, b] of meshes) vfs.addBuffer('meshes/' + f, b);
@@ -199,11 +194,9 @@ export async function mount(root, info) {
     const ctrl = new Controller({ mujoco, model, data, config, session, ort });
     const walker = new WalkMatcher(parseLibrary(...walkLib));
 
-    // ── scene ──
     const view = buildScene(model, data, canvas, stage);
     cleanups.push(() => view.dispose());
 
-    // ── state ──
     const [Klo, Khi] = config.stiffness_range;
     const slider = panel.querySelector('input[type=range]');
     const kLabel = panel.querySelector('.cg-value');
@@ -232,7 +225,7 @@ export async function mount(root, info) {
       motionBox.appendChild(b);
     }
     const HINT_DRAG = hint.innerHTML;
-    const HINT_WALK = '<b>W A S D</b> to walk · <b>Q E</b> to turn<span class="more"> · drag the robot to push it</span>';
+    const HINT_WALK = '<b>W S</b> to walk · <b>W+Q</b> / <b>W+E</b> to steer · <b>A D</b> to side-step<span class="more"> · drag the robot to push it</span>';
     function selectMotion(id) {
       motionId = id;
       motionBox.querySelectorAll('.cg-btn').forEach((b) => b.classList.toggle('active', b.dataset.motion === id));
@@ -275,7 +268,6 @@ export async function mount(root, info) {
       push = { t: 0, dir: [Math.cos(yaw), Math.sin(yaw), 0] };
     });
 
-    // ── external forces, applied at every physics step ──
     const torsoId = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY.value, 'torso_link');
     const dt = model.opt.timestep;
     ctrl.applyExternal = (d) => {
@@ -308,7 +300,6 @@ export async function mount(root, info) {
       }
     };
 
-    // ── dragging ──
     const raycaster = new THREE.Raycaster();
     const ndc = new THREE.Vector2();
     const dragPlane = new THREE.Plane();
@@ -360,7 +351,6 @@ export async function mount(root, info) {
       try {
         canvas.releasePointerCapture(e.pointerId);
       } catch (err) {
-        /* not captured */
       }
     }
     canvas.addEventListener('pointerdown', onDown, { capture: true });
@@ -368,7 +358,6 @@ export async function mount(root, info) {
     canvas.addEventListener('pointerup', onUp);
     canvas.addEventListener('pointercancel', onUp);
 
-    // ── keyboard walk: W A S D move, Q E turn (keys or the on-screen keypad) ──
     const held = new Set();
     const showKeys = () => keypad.querySelectorAll('button').forEach((b) => b.classList.toggle('down', held.has(b.dataset.key)));
     function press(k, down) {
@@ -419,7 +408,6 @@ export async function mount(root, info) {
       () => window.removeEventListener('blur', releaseAll)
     );
 
-    // ── run only while visible ──
     let visible = true;
     const io = new IntersectionObserver(([en]) => (visible = en.isIntersecting), { threshold: 0.05 });
     io.observe(stage);
@@ -428,7 +416,6 @@ export async function mount(root, info) {
     resetAll();
     loading.classList.add('done');
 
-    // ── main loop: policy at 50 Hz in real time, rendering every frame ──
     const controlDt = config.control_dt;
     let acc = 0;
     let last = performance.now();
@@ -439,7 +426,6 @@ export async function mount(root, info) {
     async function tick() {
       busy = true;
       try {
-        // Catch up to real time within a per-frame budget, so slow rendering does not slow the simulation.
         const tStart = performance.now();
         while (acc >= controlDt) {
           if (performance.now() - tStart > 35) {
@@ -572,7 +558,6 @@ function buildScene(model, data, canvas, stage) {
   floor.receiveShadow = true;
   scene.add(floor);
 
-  // Robot meshes from the compiled model (visual group only).
   const geoms = [];
   const pickables = [];
   const vert = model.mesh_vert;
@@ -591,7 +576,6 @@ function buildScene(model, data, canvas, stage) {
     let geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     geo.setIndex(new THREE.BufferAttribute(idx, 1));
-    // Smooth shading across curved surfaces, hard edges kept where faces meet at more than 35 degrees.
     geo = toCreasedNormals(geo, (35 * Math.PI) / 180);
     const mid = model.geom_matid[g];
     const rgba = mid >= 0 ? model.mat_rgba.subarray(4 * mid, 4 * mid + 4) : model.geom_rgba.subarray(4 * g, 4 * g + 4);
@@ -618,7 +602,6 @@ function buildScene(model, data, canvas, stage) {
     pickables.push(mesh);
   }
 
-  // Drag indicator: a line from the grab point to the cursor and two dots.
   const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
   const line = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: '#db2777', depthTest: false }));
   line.renderOrder = 10;
@@ -648,7 +631,6 @@ function buildScene(model, data, canvas, stage) {
     return new THREE.Vector3(d.qpos[0], d.qpos[1], 0.75);
   }
 
-  // Adaptive resolution: drop the pixel ratio when frames are slow, restore it when there is headroom.
   let frameEma = 1 / 60;
   let sinceChange = 0;
   const fixedRatio = new URLSearchParams(location.search).has('debug');
@@ -692,13 +674,11 @@ function buildScene(model, data, canvas, stage) {
         mesh.matrix.copy(m4);
         mesh.matrixWorldNeedsUpdate = true;
       }
-      // camera and light follow the pelvis
       const p = pelvis(d);
       const delta = p.clone().sub(follow).multiplyScalar(0.08);
       follow.add(delta);
       controls.target.add(delta);
       camera.position.add(delta);
-      // the floor follows in whole texture tiles (2 m), so the robot never walks off it
       floor.position.set(2 * Math.round(follow.x / 2), 2 * Math.round(follow.y / 2), 0);
       sun.position.set(follow.x + 2.5, follow.y - 1.5, 5);
       sun.target.position.set(follow.x, follow.y, 0);
